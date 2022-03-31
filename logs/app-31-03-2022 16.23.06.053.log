@@ -1,0 +1,36 @@
+2022-03-31 16:23:08,616 INFO i.MobileStore [main] You are welcome!
+2022-03-31 16:23:08,625 INFO i.Main [main] 
+Collection of battery:
+2022-03-31 16:23:08,633 INFO i.Main [main] 
+Collection of people:
+2022-03-31 16:23:08,643 INFO i.Main [main] Client{firstName='Jack ', surname='Vorobey ', patronymic='Aleksandrovich', age=18, id='857508752681265'}
+2022-03-31 16:23:08,643 INFO i.Main [main] Client{firstName='Valet ', surname='Kozirny ', patronymic='Albertovich', age=25, id='359775574267204'}
+2022-03-31 16:23:08,659 INFO i.Main [main] Client{firstName='Vitya', surname='Samuel', patronymic='Viktorovich', age=13, id='783732304885229'}
+2022-03-31 16:23:08,659 INFO i.Main [main] Client{firstName='Lex', surname='Jan', patronymic='Hu', age=20, id='631618510961567'}
+2022-03-31 16:23:08,664 INFO i.Main [main] Client{firstName='Vitya', surname='Samuel', patronymic='Viktorovich', age=55, id='473248333668170'}
+2022-03-31 16:23:08,665 INFO i.Main [main] 
+Collection of mobile phones in warehouse:
+2022-03-31 16:23:08,693 INFO i.Main [main] 357035097841694Samsung 51/A/256Gb/3300mah/6.4inh/2.9Ggz/price -310$
+2022-03-31 16:23:08,693 INFO i.Main [main] 570558319393540Samsung 34/E/256Gb/3300mah/6.4inh/2.9Ggz/price -270$
+2022-03-31 16:23:08,731 INFO i.Main [main] 623788037088829Iphone 12/Mini/256Gb/3300mah/6.1inh/2.7Ggz/price -1200$ WaterProof - false
+2022-03-31 16:23:08,731 INFO i.Main [main] 852860376106479Iphone 13/Pro/256Gb/3300mah/6.1inh/2.7Ggz/price -1350$ WaterProof - true
+2022-03-31 16:23:08,731 INFO i.Main [main] 812205557575663Samsung 21/S/256Gb/4300mah/6.4inh/2.9Ggz/price -1270$
+2022-03-31 16:23:08,731 INFO i.Main [main] 765878309659705Iphone 13/Pro Max/256Gb/3300mah/6.5inh/2.7Ggz/price -1500$ WaterProof - true
+2022-03-31 16:23:08,737 INFO i.Main [main] 
+Collection of purchased mobile phones that are being removed from the warehouse:
+2022-03-31 16:23:08,738 INFO i.Main [main] Iphone 12/Mini/256Gb/3300mah/6.1inh/2.7Ggz/price -1200$ WaterProof - false
+2022-03-31 16:23:08,740 INFO i.Main [main] Samsung 34/E/256Gb/3300mah/6.4inh/2.9Ggz/price -270$
+2022-03-31 16:23:08,741 INFO i.Main [main] Iphone 13/Pro/256Gb/3300mah/6.1inh/2.7Ggz/price -1350$ WaterProof - true
+2022-03-31 16:23:08,742 INFO i.Main [main] 
+Remaining phones in warehouse:
+2022-03-31 16:23:08,742 INFO i.Main [main] 357035097841694Samsung 51/A/256Gb/3300mah/6.4inh/2.9Ggz/price -310$
+2022-03-31 16:23:08,745 INFO i.Main [main] 812205557575663Samsung 21/S/256Gb/4300mah/6.4inh/2.9Ggz/price -1270$
+2022-03-31 16:23:08,746 INFO i.Main [main] 765878309659705Iphone 13/Pro Max/256Gb/3300mah/6.5inh/2.7Ggz/price -1500$ WaterProof - true
+2022-03-31 16:23:08,747 INFO i.Main [main] 
+Collection of transmitted mobile phones that are being removed from the warehouse::
+2022-03-31 16:23:08,763 INFO i.Main [main] Sale Shop{discountPrice=1200, discount percentage=20, mobilePhone=Iphone 13/Pro Max/256Gb/3300mah/6.5inh/2.7Ggz/price -1200$ WaterProof - true}
+2022-03-31 16:23:08,764 INFO i.Main [main] Sale Shop{discountPrice=889, discount percentage=30, mobilePhone=Samsung 21/S/256Gb/4300mah/6.4inh/2.9Ggz/price -889$}
+2022-03-31 16:23:08,765 INFO i.Main [main] Sale Shop{discountPrice=186, discount percentage=40, mobilePhone=Samsung 51/A/256Gb/3300mah/6.4inh/2.9Ggz/price -186$}
+2022-03-31 16:23:08,766 INFO i.Main [main] 
+Remaining phones in warehouse
+2022-03-31 16:23:08,766 INFO i.Main [main] 0
