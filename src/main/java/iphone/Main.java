@@ -5,7 +5,11 @@ import exception.PriceException;
 import exception.WarehouseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -208,6 +212,24 @@ public class Main {
         LOGGER.info(warehouse.size());
     }
 
+    public void utilsLesson() {
+
+        try {
+            String s = StringUtils.lowerCase(FileUtils.readFileToString(new File("src/main/resources/text.txt"))).replaceAll("[^\\da-zA-Zа-яёА-ЯЁ ]", "");
+            String[] words = s.split(" ");
+            Set<String> uniqWords = new HashSet<>(List.of(words));
+            List<String> count = new ArrayList<>();
+            for (Object o : uniqWords
+            ) {
+                count.add(o + ": " + StringUtils.countMatches(s, (CharSequence) o));
+            }
+            FileUtils.writeLines(new File("src/main/resources/count.txt"), count);
+            LOGGER.info("count.txt was created!");
+        } catch (IOException e) {
+            LOGGER.debug(e);
+        }
+    }
+
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -215,8 +237,8 @@ public class Main {
 //        main.thirdLesson();
 //       main.fourthLesson();
 //        main.fifthLesson();
-        main.collectionLesson();
-
+//        main.collectionLesson();
+        main.utilsLesson();
 
     }
 }
