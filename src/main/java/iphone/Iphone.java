@@ -36,6 +36,8 @@ public class Iphone extends MobilePhone {
         LOGGER.info("The user " + client.getFirstName() + " " + client.getSurname() + " is registered an account via iphone.Iphone");
     }
 
+
+
     @Override
     public void installingApplication() {
         LOGGER.info("Install application via App store");

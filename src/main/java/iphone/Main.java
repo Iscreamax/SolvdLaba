@@ -1,8 +1,12 @@
 package iphone;
 
+import enums.Features;
 import exception.DiscountException;
 import exception.PriceException;
 import exception.WarehouseException;
+import inerfaces.fuctional.ICompare;
+import inerfaces.fuctional.ICalculateMiddleAge;
+import inerfaces.fuctional.IConvertInch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.*;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
@@ -39,6 +44,7 @@ public class Main {
     Landline philips = new Landline("Philips", 2230, "One", 60);
     Landline lg = new Landline("LG", 007, "Home", 110);
     MobileStore mobileStore = new MobileStore();
+
 
     public void previousLesson() {
         LOGGER.info("Previous Lesson" + "\n");
@@ -197,12 +203,8 @@ public class Main {
             saleShop.add(new SaleShop(40, samsungA, warehouse));
             saleShop.add(new SaleShop(30, samsungS, warehouse));
             saleShop.add(new SaleShop(20, iphoneProMax, warehouse));
-        } catch (WarehouseException e) {
+        } catch (WarehouseException|DiscountException|PriceException e) {
             LOGGER.info(e);
-        } catch (DiscountException ex) {
-            LOGGER.info(ex);
-        } catch (PriceException exi) {
-            LOGGER.info(exi);
         }
         for (Object o : saleShop) {
             LOGGER.info(o);
@@ -230,15 +232,66 @@ public class Main {
         }
     }
 
+    public void lambdaAndEnumLesson() {
+        //lambda implementation
+
+        Predicate<MobilePhone> isIphonePro = x -> x.equals(iphonePro);
+        LOGGER.info(isIphonePro.test(samsungS));
+        LOGGER.info(isIphonePro.test(iphonePro));
+        LOGGER.info(isIphonePro.test(iphoneProMax));
+
+        BinaryOperator<Double> converter = (x, y) -> x * y;
+        LOGGER.info("The cost of this " + iphonePro + " : " + converter.apply((double) iphonePro.getPrice(), 2.9) + " BYR");
+        LOGGER.info("The cost of this " + samsungS + " : " + converter.apply((double) samsungS.getPrice(), 2.9) + " BYR");
+        LOGGER.info("The cost of this " + samsungA + " : " + converter.apply((double) samsungA.getPrice(), 2.9) + " BYR");
+
+        Consumer<Client> creditworthiness = x -> LOGGER.info("The client " + x + " is not creditworthy.");
+        creditworthiness.accept(firstClient);
+        creditworthiness.accept(secondClient);
+
+        ICalculateMiddleAge mid = (n1, n2, n3, n4, n5) -> (n1 + n2 + n3 + n4 + n5) / 5;
+        LOGGER.info("The average age is : " + mid.calculate(firstClient.getAge(), secondClient.getAge(), thirdClient.getAge(), fourthClient.getAge(), firstClient.getAge()));
+
+        ICompare c = (x, y) -> {
+            if (x > y) {
+                return "The first mobile is more expensive";
+            } else {
+                 return "The second mobile is more expensive";
+            }
+        };
+        LOGGER.info(c.compare(iphonePro.getPrice(),samsungE.getPrice()));
+        LOGGER.info(c.compare(samsungE.getPrice(),samsungS.getPrice()));
+
+        IConvertInch con =(d)->{
+            double x=d*2.54;
+            return String.valueOf(x);
+        };
+        LOGGER.info(iphonePro.getDisplay().getInch()+" inches is " +con.convertInch(iphonePro.getDisplay().getInch())+" centimeters'.");
+        LOGGER.info(iphoneProMax.getDisplay().getInch()+" inches is " +con.convertInch(iphoneProMax.getDisplay().getInch())+" centimeters'.");
+        LOGGER.info(samsungS.getDisplay().getInch()+" inches is " +con.convertInch(samsungS.getDisplay().getInch())+" centimeters'.");
+
+        //Enum implementation
+        LOGGER.info(Features.IPHONE.getMainFeatures().getValue());
+        LOGGER.info(Features.IPHONE.getSubFeatures().getValue());
+        LOGGER.info(Features.IPS.getMainFeatures().getValue());
+        LOGGER.info(Features.IPS.getSubFeatures().getValue());
+        LOGGER.info(Features.MAH.getMainFeatures().getValue());
+        LOGGER.info(Features.MAH.getSubFeatures().getValue());
+        LOGGER.info(Features.GB.getMainFeatures().getValue());
+        LOGGER.info(Features.GB.getSubFeatures().getValue());
+
+
+    }
 
     public static void main(String[] args) {
+
         Main main = new Main();
 //        main.previousLesson();
 //        main.thirdLesson();
 //       main.fourthLesson();
 //        main.fifthLesson();
 //        main.collectionLesson();
-        main.utilsLesson();
-
+//        main.utilsLesson();
+        main.lambdaAndEnumLesson();
     }
 }

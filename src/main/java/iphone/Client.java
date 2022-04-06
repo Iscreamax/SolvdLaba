@@ -1,5 +1,7 @@
 package iphone;
 
+
+
 public class Client {
     private String firstName;
     private String surname;
@@ -29,6 +31,15 @@ public class Client {
         this.firstName = firstName;
         this.surname = surname;
         id = createID();
+    }
+
+    public Client(String id) {
+        this.id = id;
+    }
+
+    public Client(int age, String id) {
+        this.age = age;
+        this.id = id;
     }
 
     public int getAge() {
@@ -83,4 +94,6 @@ public class Client {
         }
         return result;
     }
+
+
 }
