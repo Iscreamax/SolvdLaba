@@ -1,14 +1,22 @@
 package iphone;
 
 import exception.BuyAgeException;
+import inerfaces.fuctional.IPrintCheck;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 
 public final class MobileStore {
     private static final Logger LOGGER = LogManager.getLogger(MobileStore.class);
     public static final String WORKING_TIME = "Yes";
+
+    public static BinaryOperator<Double> converter = (x, y) -> x * y;
+    public static IPrintCheck printCheck = (p) -> {
+        Date currentDate = new Date();
+        LOGGER.info(currentDate + ". Amount to be paid " + p + " $, or " + converter.apply(p, 2.9) + " BYR");
+    };
 
 
     static {
@@ -27,8 +35,7 @@ public final class MobileStore {
     public static void buying(List purchased, Map warehouse, MobilePhone mobilePhone, Client client) {
         try {
             if (client.getAge() >= 18) {
-//                 LOGGER.info(client.getFirstName() + " " + client.getSurname() + ", you've purchased the phone - " + mobilePhone.toString());
-//                 LOGGER.info("The IMEI of this phone is - " + mobilePhone.imei);
+                printCheck.printCheck(mobilePhone.getPrice());
                 purchased.add(mobilePhone);
                 warehouse.remove(mobilePhone.imei);
             } else throw new BuyAgeException("You're too younger to buy!");
@@ -40,6 +47,7 @@ public final class MobileStore {
     public static void buying(MobilePhone mobilePhone, Client client) {
         try {
             if (client.getAge() >= 18) {
+
                 LOGGER.info(client.getFirstName() + " " + client.getSurname() + ", you've purchased the phone - " + mobilePhone.toString());
                 LOGGER.info("The IMEI of this phone is - " + mobilePhone.imei);
             } else throw new BuyAgeException("You're too younger to buy!");

@@ -4,9 +4,7 @@ import enums.Features;
 import exception.DiscountException;
 import exception.PriceException;
 import exception.WarehouseException;
-import inerfaces.fuctional.ICompare;
-import inerfaces.fuctional.ICalculateMiddleAge;
-import inerfaces.fuctional.IConvertInch;
+import inerfaces.fuctional.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
@@ -137,10 +136,8 @@ public class Main {
         //attempt to enter incorrect data
         //attempt to set price = 0;
         SaleShop discount = new SaleShop();
-
-
         try {
-            discount.getDiscount(iphonePro, "g");
+            discount.countDiscount(iphonePro, "g");
         } catch (PriceException e) {
             LOGGER.debug(e);
         }
@@ -153,10 +150,7 @@ public class Main {
         battery.add(batteryIphone);
         battery.add(batterySamsungAE);
         battery.add(batterySamsungS);
-
-        for (Object o : battery) {
-            System.out.println(o);
-        }
+        battery.stream().forEach(LOGGER::info);
 
         LOGGER.info("\n" + "Collection of people:");
         Set<Client> clients = new LinkedHashSet<>();
@@ -165,11 +159,9 @@ public class Main {
         clients.add(thirdClient);
         clients.add(fourthClient);
         clients.add(fifthClient);
-        for (Object o : clients) {
-            LOGGER.info(o);
-        }
-        LOGGER.info("\n" + "Collection of mobile phones in warehouse:");
+        clients.stream().sorted().forEach(LOGGER::info);
 
+        LOGGER.info("\n" + "Collection of mobile phones in warehouse:");
         // created a depot with new mobile phones
         Map<String, MobilePhone> warehouse = new HashMap();
         warehouse.put(iphonePro.imei, iphonePro);
@@ -178,24 +170,20 @@ public class Main {
         warehouse.put(samsungS.imei, samsungS);
         warehouse.put(samsungA.imei, samsungA);
         warehouse.put(samsungE.imei, samsungE);
-        Set warehouseSet = warehouse.entrySet();
-        for (Map.Entry<String, MobilePhone> o : warehouse.entrySet()) {
-            LOGGER.info(o.getKey() + o.getValue());
-        }
+        warehouse.entrySet().stream().map(o -> o.getKey() + " " + o.getValue()).forEach(LOGGER::info);
+
 
         LOGGER.info("\n" + "Collection of purchased mobile phones that are being removed from the warehouse:");
+
         ArrayList<MobilePhone> purchasedPhones = new ArrayList<>();
         MobileStore.buying(purchasedPhones, warehouse, iphoneMini, firstClient);
         MobileStore.buying(purchasedPhones, warehouse, samsungE, secondClient);
         MobileStore.buying(purchasedPhones, warehouse, iphonePro, fourthClient);
-        for (Object o : purchasedPhones) {
-            LOGGER.info(o);
-        }
+        purchasedPhones.stream().forEach(LOGGER::info);
 
         LOGGER.info("\n" + "Remaining phones in warehouse:");
-        for (Map.Entry<String, MobilePhone> o : warehouse.entrySet()) {
-            LOGGER.info(o.getKey() + o.getValue());
-        }
+        warehouse.entrySet().stream().map(o -> o.getKey() + " " + o.getValue()).forEach(LOGGER::info);
+
 
         LOGGER.info("\n" + "Collection of transmitted mobile phones that are being removed from the warehouse::");
         Set<SaleShop> saleShop = new TreeSet<>();
@@ -203,12 +191,10 @@ public class Main {
             saleShop.add(new SaleShop(40, samsungA, warehouse));
             saleShop.add(new SaleShop(30, samsungS, warehouse));
             saleShop.add(new SaleShop(20, iphoneProMax, warehouse));
-        } catch (WarehouseException|DiscountException|PriceException e) {
+        } catch (WarehouseException | DiscountException | PriceException e) {
             LOGGER.info(e);
         }
-        for (Object o : saleShop) {
-            LOGGER.info(o);
-        }
+        saleShop.stream().forEach(LOGGER::info);
 
         LOGGER.info("\n" + "Remaining phones in warehouse");
         LOGGER.info(warehouse.size());
@@ -220,11 +206,7 @@ public class Main {
             String s = StringUtils.lowerCase(FileUtils.readFileToString(new File("src/main/resources/text.txt"))).replaceAll("[^\\da-zA-Zа-яёА-ЯЁ ]", "");
             String[] words = s.split(" ");
             Set<String> uniqWords = new HashSet<>(List.of(words));
-            List<String> count = new ArrayList<>();
-            for (Object o : uniqWords
-            ) {
-                count.add(o + ": " + StringUtils.countMatches(s, (CharSequence) o));
-            }
+            List<String> count = uniqWords.stream().map(o -> o + ": " + StringUtils.countMatches(s, o)).collect(Collectors.toList());
             FileUtils.writeLines(new File("src/main/resources/count.txt"), count);
             LOGGER.info("count.txt was created!");
         } catch (IOException e) {
@@ -256,19 +238,27 @@ public class Main {
             if (x > y) {
                 return "The first mobile is more expensive";
             } else {
-                 return "The second mobile is more expensive";
+                return "The second mobile is more expensive";
             }
         };
-        LOGGER.info(c.compare(iphonePro.getPrice(),samsungE.getPrice()));
-        LOGGER.info(c.compare(samsungE.getPrice(),samsungS.getPrice()));
+        LOGGER.info(c.compare(iphonePro.getPrice(), samsungE.getPrice()));
+        LOGGER.info(c.compare(samsungE.getPrice(), samsungS.getPrice()));
 
-        IConvertInch con =(d)->{
-            double x=d*2.54;
+        IConvertInch con = (d) -> {
+            double x = d * 2.54;
             return String.valueOf(x);
         };
-        LOGGER.info(iphonePro.getDisplay().getInch()+" inches is " +con.convertInch(iphonePro.getDisplay().getInch())+" centimeters'.");
-        LOGGER.info(iphoneProMax.getDisplay().getInch()+" inches is " +con.convertInch(iphoneProMax.getDisplay().getInch())+" centimeters'.");
-        LOGGER.info(samsungS.getDisplay().getInch()+" inches is " +con.convertInch(samsungS.getDisplay().getInch())+" centimeters'.");
+        LOGGER.info(iphonePro.getDisplay().getInch() + " inches is " + con.convertInch(iphonePro.getDisplay().getInch()) + " centimeters'.");
+        LOGGER.info(iphoneProMax.getDisplay().getInch() + " inches is " + con.convertInch(iphoneProMax.getDisplay().getInch()) + " centimeters'.");
+        LOGGER.info(samsungS.getDisplay().getInch() + " inches is " + con.convertInch(samsungS.getDisplay().getInch()) + " centimeters'.");
+
+        ICountWorkingTime workingTime = (w) -> {
+            double x = w / 200;
+            return x;
+        };
+        LOGGER.info(iphonePro.toString() + ": keeps the battery for " + workingTime.count(iphonePro.getBattery().getCapacity()) + " hours of use");
+        LOGGER.info(samsungS.toString() + ": keeps the battery for " + workingTime.count(samsungS.getBattery().getCapacity()) + " hours of use");
+
 
         //Enum implementation
         LOGGER.info(Features.IPHONE.getMainFeatures().getValue());
@@ -290,7 +280,7 @@ public class Main {
 //        main.thirdLesson();
 //       main.fourthLesson();
 //        main.fifthLesson();
-//        main.collectionLesson();
+        main.collectionLesson();
 //        main.utilsLesson();
         main.lambdaAndEnumLesson();
     }

@@ -13,7 +13,7 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
     private Display display;
     private Cpu cpu;
     public final String imei;
-    public static int createdMobile = 0;
+    private static int createdMobile = 0;
 
     public MobilePhone(int model, String version, String imei) {
         super(model, version);
@@ -30,7 +30,6 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
         createdMobile++;
 
     }
-
 
     public Battery getBattery() {
         return battery;
@@ -64,6 +63,19 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
         this.cpu = cpu;
     }
 
+    public String getImei() {
+        return imei;
+    }
+
+    public static int getCreatedMobile() {
+        return createdMobile;
+    }
+
+    public static void setCreatedMobile(int createdMobile) {
+        MobilePhone.createdMobile = createdMobile;
+    }
+
+
     public String createImei() {
         String result = "";
         for (int i = 0; i < 15; i++) {
@@ -89,17 +101,6 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
 
     public abstract void internetConnection();
 
-//    @Override
-//    public String toString() {
-//        return "MobilePhone{" +
-//                "battery=" + battery +
-//                ", memory=" + memory +
-//                ", display=" + display +
-//                ", cpu=" + cpu +
-//                ", imei='" + imei + '\'' +
-//                '}';
-//    }
-
     @Override
     public void sendMessage(Message message, Client firstClient, Client secondClient) {
 
@@ -113,6 +114,7 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
         if (that.imei != ((MobilePhone) o).imei) return false;
         return Objects.equals(battery, that.battery) && Objects.equals(memory, that.memory) && Objects.equals(display, that.display) && Objects.equals(cpu, that.cpu) && Objects.equals(imei, that.imei);
     }
+
 
     @Override
     public int hashCode() {

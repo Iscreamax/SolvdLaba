@@ -34,5 +34,4 @@ public class Battery {
         return ("\n" + "Battery:" + "\n" + "Manufacture - " + getManufacture() + "\n" + "Capacity - " + getCapacity());
     }
 
-
 }

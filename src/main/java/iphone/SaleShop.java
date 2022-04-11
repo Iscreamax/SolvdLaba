@@ -27,7 +27,7 @@ public class SaleShop implements Comparable<SaleShop> {
         if (warehouse.get(mobilePhone.imei) == mobilePhone) {
             setPercent(percent);
             this.percent = percent;
-            this.discountPrice = getDiscountPrice(mobilePhone, percent);
+            this.discountPrice = countDiscountPrice(mobilePhone, percent);
             this.imei = mobilePhone.imei;
             warehouse.remove(mobilePhone.imei);
             mobilePhone.setPrice(discountPrice);
@@ -69,17 +69,34 @@ public class SaleShop implements Comparable<SaleShop> {
         return percent;
     }
 
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
+
+
+    public int getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(int discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
     //Counting the discountPrice
-    public int getDiscountPrice(MobilePhone mobilePhone, int percent) {
+    public int countDiscountPrice(MobilePhone mobilePhone, int percent) {
         discountPrice = (int) (mobilePhone.getPrice() * (1 - (double) (percent / 100d)));
         return discountPrice;
     }
 
     //Handle exception with try-catch and signature
-    public void getDiscount(MobilePhone mobilePhone, String percent) throws PriceException {
+    public void countDiscount(MobilePhone mobilePhone, String percent) throws PriceException {
         try {
             int discount = Integer.parseInt(percent) / 100;
-            mobilePhone.getDiscount(0);
+            mobilePhone.getDiscount();
             discountPrice = mobilePhone.getPrice() * (1 - discount);
         } catch (NumberFormatException e) {
             try {
@@ -120,4 +137,6 @@ public class SaleShop implements Comparable<SaleShop> {
     public int compareTo(SaleShop o) {
         return this.percent - o.percent;
     }
+
+
 }

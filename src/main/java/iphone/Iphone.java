@@ -19,6 +19,14 @@ public class Iphone extends MobilePhone {
         super(model, version, imei);
     }
 
+    public boolean isWaterProof() {
+        return waterProof;
+    }
+
+    public void setWaterProof(boolean waterProof) {
+        this.waterProof = waterProof;
+    }
+
     @Override
     public String toString() {
         return ("Iphone " + getModel() + "/" + getVersion() + "/" + getMemory().getCapacity() + "Gb/"
@@ -35,7 +43,6 @@ public class Iphone extends MobilePhone {
     public void registration(Client client) {
         LOGGER.info("The user " + client.getFirstName() + " " + client.getSurname() + " is registered an account via iphone.Iphone");
     }
-
 
 
     @Override
@@ -57,8 +64,6 @@ public class Iphone extends MobilePhone {
         } catch (EmptyMessageException exception) {
             LOGGER.debug(exception);
             LOGGER.info("The message is empty");
-
-
         }
     }
 
@@ -99,6 +104,4 @@ public class Iphone extends MobilePhone {
         result = 31 * result * getMemory().hashCode();
         return result;
     }
-
-
 }

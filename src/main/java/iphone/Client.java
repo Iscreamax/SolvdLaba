@@ -1,8 +1,8 @@
 package iphone;
 
+import java.util.Objects;
 
-
-public class Client {
+public class Client implements Comparable<Client> {
     private String firstName;
     private String surname;
     private String patronymic;
@@ -40,6 +40,10 @@ public class Client {
     public Client(int age, String id) {
         this.age = age;
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public int getAge() {
@@ -95,5 +99,22 @@ public class Client {
         return result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return age == client.age && Objects.equals(firstName, client.firstName) && Objects.equals(surname, client.surname) && Objects.equals(patronymic, client.patronymic) && Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, surname, patronymic, age, id);
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return this.age - o.age;
+    }
 
 }

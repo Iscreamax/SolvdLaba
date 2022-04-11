@@ -1,7 +1,5 @@
 package iphone;
 
-import java.util.Objects;
-
 public class Cpu {
     private String manufacture;
     private double frequency;

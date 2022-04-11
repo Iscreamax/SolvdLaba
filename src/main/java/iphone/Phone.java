@@ -36,7 +36,7 @@ public abstract class Phone {
         this.discount = discount;
     }
 
-    public int getDiscount(int i) {
+    public int getDiscount() {
         return discount;
     }
 
@@ -92,8 +92,12 @@ public abstract class Phone {
         System.out.println("Hello this is 911");
     }
 
+
+
     public void makeCall(Client firstClient, Client secondClient) {
 
         LOGGER.info(firstClient.getFirstName() + " called " + secondClient.getFirstName() + " on the analog line.");
     }
+
+
 }
