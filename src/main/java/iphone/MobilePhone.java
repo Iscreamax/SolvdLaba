@@ -7,12 +7,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.Objects;
 
 public abstract class MobilePhone extends Phone implements IInstallingApplication, IUpdate, IMakePhoto, IMakeVideo, ISendMessage {
-    private static final Logger LOGGER = LogManager.getLogger(Memory.class);
+    private static final Logger LOGGER = LogManager.getLogger(MobilePhone.class);
     private Battery battery;
     private Memory memory;
     private Display display;
     private Cpu cpu;
-    public final String imei;
+    private final String imei;
     public static int createdMobile = 0;
 
     public MobilePhone(int model, String version, String imei) {
@@ -69,10 +69,6 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
 
     public static int getCreatedMobile() {
         return createdMobile;
-    }
-
-    public static void setCreatedMobile(int createdMobile) {
-        MobilePhone.createdMobile = createdMobile;
     }
 
 

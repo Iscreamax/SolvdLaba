@@ -20,7 +20,7 @@ public final class MobileStore {
 
 
     static {
-        System.out.print("Does the Mobile Store open?(Yes/No) ");
+        LOGGER.info("Does the Mobile Store open?(Yes/No) ");
         try (Scanner scanner = new Scanner(System.in)) {
             if (scanner.next().equals(WORKING_TIME)) {
                 LOGGER.info("You are welcome!");
@@ -37,7 +37,7 @@ public final class MobileStore {
             if (client.getAge() >= 18) {
                 printCheck.printCheck(mobilePhone.getPrice());
                 purchased.add(mobilePhone);
-                warehouse.remove(mobilePhone.imei);
+                warehouse.remove(mobilePhone.getImei());
             } else throw new BuyAgeException("You're too younger to buy!");
         } catch (BuyAgeException e) {
             LOGGER.debug(e);
@@ -49,7 +49,7 @@ public final class MobileStore {
             if (client.getAge() >= 18) {
 
                 LOGGER.info(client.getFirstName() + " " + client.getSurname() + ", you've purchased the phone - " + mobilePhone.toString());
-                LOGGER.info("The IMEI of this phone is - " + mobilePhone.imei);
+                LOGGER.info("The IMEI of this phone is - " + mobilePhone.getImei());
             } else throw new BuyAgeException("You're too younger to buy!");
         } catch (BuyAgeException e) {
             LOGGER.debug(e);

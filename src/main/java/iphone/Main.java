@@ -5,6 +5,7 @@ import exception.DiscountException;
 import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
+import linkedList.LinkedList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -55,9 +56,9 @@ public class Main {
         LOGGER.info("");
         LOGGER.info("Sending a message:");
         iphonePro.sendMessage(message, firstClient, secondClient);
-        System.out.println("Making a call:");
+        LOGGER.info("Making a call:");
         iphonePro.makeCall(firstClient, secondClient);
-        System.out.println("We change names and make a call:");
+        LOGGER.info("We change names and make a call:");
         firstClient.setFirstName("Max ");
         secondClient.setFirstName("Oleg ");
         iphonePro.makeCall(firstClient, secondClient);
@@ -164,12 +165,12 @@ public class Main {
         LOGGER.info("\n" + "Collection of mobile phones in warehouse:");
         // created a depot with new mobile phones
         Map<String, MobilePhone> warehouse = new HashMap();
-        warehouse.put(iphonePro.imei, iphonePro);
-        warehouse.put(iphoneMini.imei, iphoneMini);
-        warehouse.put(iphoneProMax.imei, iphoneProMax);
-        warehouse.put(samsungS.imei, samsungS);
-        warehouse.put(samsungA.imei, samsungA);
-        warehouse.put(samsungE.imei, samsungE);
+        warehouse.put(iphonePro.getImei(), iphonePro);
+        warehouse.put(iphoneMini.getImei(), iphoneMini);
+        warehouse.put(iphoneProMax.getImei(), iphoneProMax);
+        warehouse.put(samsungS.getImei(), samsungS);
+        warehouse.put(samsungA.getImei(), samsungA);
+        warehouse.put(samsungE.getImei(), samsungE);
         warehouse.entrySet().stream().map(o -> o.getKey() + " " + o.getValue()).forEach(LOGGER::info);
 
 
@@ -191,13 +192,26 @@ public class Main {
             saleShop.add(new SaleShop(40, samsungA, warehouse));
             saleShop.add(new SaleShop(30, samsungS, warehouse));
             saleShop.add(new SaleShop(20, iphoneProMax, warehouse));
-        } catch (WarehouseException | DiscountException | PriceException e) {
+        } catch (WarehouseException | DiscountException e) {
             LOGGER.info(e);
         }
         saleShop.stream().forEach(LOGGER::info);
 
         LOGGER.info("\n" + "Remaining phones in warehouse");
         LOGGER.info(warehouse.size());
+
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.addLast("B");
+        linkedList.addLast("C");
+        linkedList.addLast("D");
+        linkedList.addLast("E");
+        LOGGER.info("LL: " +linkedList);
+        linkedList.addFirst("A");
+        LOGGER.info("LL: " +linkedList);
+        LOGGER.info("Index of element with value E: "+ linkedList.get("E"));
+        LOGGER.info("Index of element with value Z: "+ linkedList.get("Z"));
+        linkedList.remove("C");
+        LOGGER.info("LL: " +linkedList);
     }
 
     public void utilsLesson() {

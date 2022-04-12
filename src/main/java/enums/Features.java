@@ -13,6 +13,14 @@ public enum Features {
     MAH(MainFeatures.BATTERY,SubFeatures.MAH),
     GB(MainFeatures.MEMORY,SubFeatures.GB);
 
+    private MainFeatures mainFeatures;
+    private SubFeatures subFeatures;
+
+    Features(MainFeatures mainFeatures, SubFeatures subFeatures) {
+        this.mainFeatures = mainFeatures;
+        this.subFeatures = subFeatures;
+    }
+
     public MainFeatures getMainFeatures() {
         return mainFeatures;
     }
@@ -21,11 +29,4 @@ public enum Features {
         return subFeatures;
     }
 
-    private MainFeatures mainFeatures;
-    private SubFeatures subFeatures;
-
-    Features(MainFeatures mainFeatures, SubFeatures subFeatures) {
-        this.mainFeatures = mainFeatures;
-        this.subFeatures = subFeatures;
-    }
 }

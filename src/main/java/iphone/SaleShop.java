@@ -23,13 +23,13 @@ public class SaleShop implements Comparable<SaleShop> {
         setPercent(percent);
     }
 
-    public SaleShop(int percent, MobilePhone mobilePhone, Map warehouse) throws WarehouseException, DiscountException, PriceException {
-        if (warehouse.get(mobilePhone.imei) == mobilePhone) {
+    public SaleShop(int percent, MobilePhone mobilePhone, Map warehouse) throws WarehouseException, DiscountException {
+        if (warehouse.get(mobilePhone.getImei()) == mobilePhone) {
             setPercent(percent);
             this.percent = percent;
             this.discountPrice = countDiscountPrice(mobilePhone, percent);
-            this.imei = mobilePhone.imei;
-            warehouse.remove(mobilePhone.imei);
+            this.imei = mobilePhone.getImei();
+            warehouse.remove(mobilePhone.getImei());
             mobilePhone.setPrice(discountPrice);
             this.mobilePhone = mobilePhone;
         } else {
@@ -88,7 +88,7 @@ public class SaleShop implements Comparable<SaleShop> {
 
     //Counting the discountPrice
     public int countDiscountPrice(MobilePhone mobilePhone, int percent) {
-        discountPrice = (int) (mobilePhone.getPrice() * (1 - (double) (percent / 100d)));
+        discountPrice = (int) (mobilePhone.getPrice() * (1 - (percent / 100d)));
         return discountPrice;
     }
 
@@ -130,7 +130,7 @@ public class SaleShop implements Comparable<SaleShop> {
 
     @Override
     public int hashCode() {
-        return Integer.parseInt(mobilePhone.imei);
+        return Integer.parseInt(mobilePhone.getImei());
     }
 
     @Override
