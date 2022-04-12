@@ -13,7 +13,7 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
     private Display display;
     private Cpu cpu;
     public final String imei;
-    private static int createdMobile = 0;
+    public static int createdMobile = 0;
 
     public MobilePhone(int model, String version, String imei) {
         super(model, version);
