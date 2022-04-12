@@ -203,7 +203,7 @@ public class Main {
     public void utilsLesson() {
 
         try {
-            String s = StringUtils.lowerCase(FileUtils.readFileToString(new File("src/main/resources/text.txt"))).replaceAll("[^\\da-zA-Zа-яёА-ЯЁ ]", "");
+            String s = StringUtils.lowerCase(FileUtils.readFileToString(new File("src/main/resources/text.txt"))).replaceAll("[^\\da-zA-Z ]", "");
             String[] words = s.split(" ");
             Set<String> uniqWords = new HashSet<>(List.of(words));
             List<String> count = uniqWords.stream().map(o -> o + ": " + StringUtils.countMatches(s, o)).collect(Collectors.toList());
