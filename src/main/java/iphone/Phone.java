@@ -14,22 +14,22 @@ public abstract class Phone {
     private int discount;
     private static final Logger LOGGER = LogManager.getLogger(Phone.class);
 
-    public Phone(int price) {
+    protected Phone(int price) {
         this.price = price;
     }
 
-    public Phone(int model, String version) {
+    protected Phone(int model, String version) {
         this.model = model;
         this.version = version;
     }
 
-    public Phone(int model, String version, int price) {
+    protected Phone(int model, String version, int price) {
         this.model = model;
         this.version = version;
         this.price = price;
     }
 
-    public Phone(int model, String version, int price, int discount) {
+    protected Phone(int model, String version, int price, int discount) {
         this.model = model;
         this.version = version;
         this.price = price;
@@ -89,9 +89,8 @@ public abstract class Phone {
     }
 
     public void alarmCall() {
-        System.out.println("Hello this is 911");
+        LOGGER.info("Hello this is 911");
     }
-
 
 
     public void makeCall(Client firstClient, Client secondClient) {

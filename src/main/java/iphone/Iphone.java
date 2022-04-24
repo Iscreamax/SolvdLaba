@@ -7,31 +7,24 @@ import org.apache.logging.log4j.Logger;
 import java.util.Objects;
 
 public class Iphone extends MobilePhone {
-    private boolean waterProof;
+
     private static final Logger LOGGER = LogManager.getLogger(Iphone.class);
 
-    public Iphone(int model, String version, Memory memory, Battery battery, Display display, Cpu cpu, int price, boolean waterProof) {
+    public Iphone(int model, String version, Memory memory, Battery battery, Display display, Cpu cpu, int price) {
         super(model, version, memory, battery, display, cpu, price);
-        this.waterProof = waterProof;
+
     }
 
-    public Iphone(int model, String version, String imei) {
-        super(model, version, imei);
+    public Iphone(int model, String version) {
+        super(model, version);
     }
 
-    public boolean isWaterProof() {
-        return waterProof;
-    }
-
-    public void setWaterProof(boolean waterProof) {
-        this.waterProof = waterProof;
-    }
 
     @Override
     public String toString() {
         return ("Iphone " + getModel() + "/" + getVersion() + "/" + getMemory().getCapacity() + "Gb/"
                 + getBattery().getCapacity() + "mah/" + getDisplay().getInch() + "inh/" + getCpu().getFrequency() +
-                "Ggz/price -" + getPrice() + "$" + " WaterProof - " + waterProof);
+                "Ggz/price -" + getPrice() + "$");
     }
 
     @Override

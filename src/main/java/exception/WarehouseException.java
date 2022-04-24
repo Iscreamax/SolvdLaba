@@ -1,6 +1,6 @@
 package exception;
 
-public class WarehouseException extends Exception{
+public class WarehouseException extends Exception {
     public WarehouseException() {
     }
 

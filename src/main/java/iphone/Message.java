@@ -18,6 +18,4 @@ public class Message {
     public void setLetterField(String letterField) {
         this.letterField = letterField;
     }
-
-
 }

@@ -1,11 +1,11 @@
 package iphone;
 
+
 public class Cpu {
     private String manufacture;
-    private double frequency;
+    private double frequency = 2.1;
 
     public Cpu() {
-
     }
 
     public Cpu(String manufacture, double frequency) {
@@ -28,6 +28,7 @@ public class Cpu {
     public void setFrequency(double frequency) {
         this.frequency = frequency;
     }
+
 
     @Override
     public String toString() {

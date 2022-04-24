@@ -11,8 +11,10 @@ import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.io.FileUtils;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -35,24 +37,23 @@ public class Main {
     Client fifthClient = new Client("Vitya", "Samuel", "Viktorovich", 55);
     Message message = new Message("I'm going to be late for work, I'm sorry!");
     Message emptyMessage = new Message("");
-    MobilePhone iphonePro = new Iphone(13, "Pro", memory, batteryIphone, displayIphone, cpuIphone, 1350, true);
-    MobilePhone iphoneMini = new Iphone(12, "Mini", memory, batteryIphone, displayIphone, cpuIphone, 1200, false);
-    MobilePhone iphoneProMax = new Iphone(13, "Pro Max", memory, batteryIphone, displayIphoneMax, cpuIphone, 1500, true);
+    MobilePhone iphonePro = new Iphone(13, "Pro", memory, batteryIphone, displayIphone, cpuIphone, 1350);
+    MobilePhone iphoneMini = new Iphone(12, "Mini", memory, batteryIphone, displayIphone, cpuIphone, 1200);
+    MobilePhone iphoneProMax = new Iphone(13, "Pro Max", memory, batteryIphone, displayIphoneMax, cpuIphone, 1500);
     MobilePhone samsungS = new Samsung(21, "S", memory, batterySamsungS, displaySamsung, cpuSamsung, 1270);
     MobilePhone samsungA = new Samsung(51, "A", memory, batterySamsungAE, displaySamsung, cpuSamsung, 310);
     MobilePhone samsungE = new Samsung(34, "E", memory, batterySamsungAE, displaySamsung, cpuSamsung, 270);
     Landline philips = new Landline("Philips", 2230, "One", 60);
     Landline lg = new Landline("LG", 007, "Home", 110);
-    MobileStore mobileStore = new MobileStore();
 
 
-    public void previousLesson() {
+    private void runPreviousLesson() {
         LOGGER.info("Previous Lesson" + "\n");
-        LOGGER.info(iphonePro.toString());
-        LOGGER.info(memory.toString());
-        LOGGER.info(batteryIphone.toString());
-        LOGGER.info(displayIphone.toString());
-        LOGGER.info(cpuIphone.toString());
+        LOGGER.info(iphonePro);
+        LOGGER.info(memory);
+        LOGGER.info(batteryIphone);
+        LOGGER.info(displayIphone);
+        LOGGER.info(cpuIphone);
         LOGGER.info("");
         LOGGER.info("Sending a message:");
         iphonePro.sendMessage(message, firstClient, secondClient);
@@ -64,9 +65,9 @@ public class Main {
         iphonePro.makeCall(firstClient, secondClient);
     }
 
-    public void thirdLesson() {
+    private void runThirdLesson() {
 
-        //buy new iphone.Iphone
+
         //turn on iphone.Iphone
         //establish an iPhone connection with a satellite
         //registering a user
@@ -77,8 +78,8 @@ public class Main {
         //taking photos on iphone.Iphone
         //shooting a video on an iphone.Iphone
         //a call to the 911 service from an iphone.Iphone
-
-//        appleStore.buying(iphonePro, firstClient);
+        MobileStore appleStore = new MobileStore();
+        appleStore.buying(iphonePro, firstClient);
         iphonePro.turnOnMobile();
         iphonePro.satelliteConnection();
         iphonePro.internetConnection();
@@ -102,8 +103,8 @@ public class Main {
         //shooting a video on a iphone.Samsung
         //a call to the 911 service from a iphone.Samsung
 
-
-//        newSamsung.buying(samsungS, secondClient);
+        MobileStore samsungStore = new MobileStore();
+        samsungStore.buying(samsungS, secondClient);
         samsungS.turnOnMobile();
         samsungS.satelliteConnection();
         samsungS.internetConnection();
@@ -116,7 +117,7 @@ public class Main {
         MobilePhone.created();
     }
 
-    public void fourthLesson() {
+    private void runFourthLesson() {
         LOGGER.info("Equals iphone.Landline: " + philips.equals(lg));
         LOGGER.info("Equals iphone.Iphone: " + iphonePro.equals(iphoneMini));
         LOGGER.info("Equals iphone.Samsung: " + samsungS.equals(iphoneMini));
@@ -127,34 +128,35 @@ public class Main {
         LOGGER.info("LG hashCode: " + lg.hashCode());
     }
 
-    public void fifthLesson() throws Exception {
+    private void runFifthLesson() {
 
 
         //attempt to send an empty message
         iphonePro.sendMessage(emptyMessage, firstClient, secondClient);
-        //attempt to purchase a phone by a minor
-//        iStore.buying(iphoneMini, thirdClient);
         //attempt to enter incorrect data
         //attempt to set price = 0;
         SaleShop discount = new SaleShop();
         try {
+            discount.setPercent(10);
             discount.countDiscount(iphonePro, "g");
         } catch (PriceException e) {
             LOGGER.debug(e);
+        } catch (DiscountException e) {
+            e.printStackTrace();
         }
     }
 
 
-    public void collectionLesson() {
+    private void useCollectionLesson() {
         LOGGER.info("\n" + "Collection of battery:");
-        Set<Battery> battery = new LinkedHashSet<>();
+        Set<Battery> battery = new HashSet<>();
         battery.add(batteryIphone);
         battery.add(batterySamsungAE);
         battery.add(batterySamsungS);
         battery.stream().forEach(LOGGER::info);
 
         LOGGER.info("\n" + "Collection of people:");
-        Set<Client> clients = new LinkedHashSet<>();
+        Set<Client> clients = new HashSet<>();
         clients.add(firstClient);
         clients.add(secondClient);
         clients.add(thirdClient);
@@ -164,7 +166,7 @@ public class Main {
 
         LOGGER.info("\n" + "Collection of mobile phones in warehouse:");
         // created a depot with new mobile phones
-        Map<String, MobilePhone> warehouse = new HashMap();
+        Map<String, MobilePhone> warehouse = new HashMap<>();
         warehouse.put(iphonePro.getImei(), iphonePro);
         warehouse.put(iphoneMini.getImei(), iphoneMini);
         warehouse.put(iphoneProMax.getImei(), iphoneProMax);
@@ -192,7 +194,7 @@ public class Main {
             saleShop.add(new SaleShop(40, samsungA, warehouse));
             saleShop.add(new SaleShop(30, samsungS, warehouse));
             saleShop.add(new SaleShop(20, iphoneProMax, warehouse));
-        } catch (WarehouseException | DiscountException e) {
+        } catch (WarehouseException e) {
             LOGGER.info(e);
         }
         saleShop.stream().forEach(LOGGER::info);
@@ -205,16 +207,16 @@ public class Main {
         linkedList.addLast("C");
         linkedList.addLast("D");
         linkedList.addLast("E");
-        LOGGER.info("LL: " +linkedList);
+        LOGGER.info("LL: " + linkedList);
         linkedList.addFirst("A");
-        LOGGER.info("LL: " +linkedList);
-        LOGGER.info("Index of element with value E: "+ linkedList.get("E"));
-        LOGGER.info("Index of element with value Z: "+ linkedList.get("Z"));
+        LOGGER.info("LL: " + linkedList);
+        LOGGER.info("Index of element with value E: " + linkedList.get("E"));
+        LOGGER.info("Index of element with value Z: " + linkedList.get("Z"));
         linkedList.remove("C");
-        LOGGER.info("LL: " +linkedList);
+        LOGGER.info("LL: " + linkedList);
     }
 
-    public void utilsLesson() {
+    private void useUtilsLesson() {
 
         try {
             String s = StringUtils.lowerCase(FileUtils.readFileToString(new File("src/main/resources/text.txt"))).replaceAll("[^\\da-zA-Z ]", "");
@@ -228,7 +230,7 @@ public class Main {
         }
     }
 
-    public void lambdaAndEnumLesson() {
+    private void useLambdaAndEnumLesson() {
         //lambda implementation
 
         Predicate<MobilePhone> isIphonePro = x -> x.equals(iphonePro);
@@ -287,15 +289,89 @@ public class Main {
 
     }
 
+    private void useReflection() {
+        Constructor[] constructors = Cpu.class.getDeclaredConstructors();
+        Arrays.stream(constructors).forEach(LOGGER::info);
+        Field[] fields = Cpu.class.getDeclaredFields();
+        Arrays.stream(fields).forEach(LOGGER::info);
+        Method[] methods = Cpu.class.getDeclaredMethods();
+        Arrays.stream(methods).forEach(LOGGER::info);
+        Cpu cpu = new Cpu();
+        String manufacture = cpu.getManufacture();
+        double frequency = 0;
+        LOGGER.info(frequency);
+        try {
+            Field field = cpu.getClass().getDeclaredField("frequency");
+            field.setAccessible(true);
+            frequency = (double) field.get(cpu);
+            LOGGER.info(frequency);
+            cpu = (Cpu) constructors[1].newInstance("AMD", 2.7);
+            LOGGER.info(cpu);
+            Method method = cpu.getClass().getDeclaredMethod("get" + StringUtils.capitalize(fields[1].getName()));
+            field.set(cpu, 4.1);
+            frequency = (double) method.invoke(cpu);
+            LOGGER.info(cpu);
+        } catch (NoSuchFieldException e) {
+            LOGGER.info(e);
+        } catch (IllegalAccessException ex) {
+            LOGGER.info(ex);
+        } catch (InstantiationException exc) {
+            LOGGER.info(exc);
+        } catch (InvocationTargetException exce) {
+            LOGGER.info(exce);
+        } catch (NoSuchMethodException excep) {
+            LOGGER.info(excep);
+        }
+
+
+    }
+
+    private void runThreads() {
+
+        Thread firstThread = new Thread(() -> {
+            LOGGER.info(Thread.currentThread().getName() + " start");
+            synchronized (firstClient) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    LOGGER.info(e);
+                }
+                synchronized (secondClient) {
+                }
+            }
+            LOGGER.info(Thread.currentThread().getName() + " end");
+        }, "FirstThread");
+
+        Thread secondThread = new Thread(() -> {
+            LOGGER.info(Thread.currentThread().getName() + " start");
+            synchronized (secondClient) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    LOGGER.info(e);
+                }
+                synchronized (firstClient) {
+                }
+            }
+            LOGGER.info(Thread.currentThread().getName() + " end");
+        }, "SecondThread");
+        firstThread.start();
+        secondThread.start();
+
+    }
+
     public static void main(String[] args) {
 
         Main main = new Main();
-//        main.previousLesson();
-//        main.thirdLesson();
-//       main.fourthLesson();
-//        main.fifthLesson();
-        main.collectionLesson();
-//        main.utilsLesson();
-        main.lambdaAndEnumLesson();
+//        main.runPreviousLesson();
+//        main.runThirdLesson();
+//        main.runFourthLesson();
+        main.runFifthLesson();
+//        main.useCollectionLesson();
+//        main.useUtilsLesson();
+//        main.useLambdaAndEnumLesson();
+//        main.useReflection();
+//        main.runThreads();
+
     }
 }

@@ -7,7 +7,6 @@ public class Display {
     private String manufacture;
     private String types;
     private double inch;
-    private static final Logger LOGGER = LogManager.getLogger(Display.class);
 
     public Display() {
 
@@ -47,7 +46,6 @@ public class Display {
 
     public void setInch(double inch) {
         this.inch = inch;
-
     }
 
     @Override

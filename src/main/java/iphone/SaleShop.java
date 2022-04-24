@@ -19,19 +19,14 @@ public class SaleShop implements Comparable<SaleShop> {
 
     }
 
-    public SaleShop(int percent) throws DiscountException {
-        setPercent(percent);
-    }
-
-    public SaleShop(int percent, MobilePhone mobilePhone, Map warehouse) throws WarehouseException, DiscountException {
+    public SaleShop(int percent, MobilePhone mobilePhone, Map<String, MobilePhone> warehouse) throws WarehouseException {
         if (warehouse.get(mobilePhone.getImei()) == mobilePhone) {
-            setPercent(percent);
             this.percent = percent;
             this.discountPrice = countDiscountPrice(mobilePhone, percent);
             this.imei = mobilePhone.getImei();
+            this.mobilePhone = mobilePhone;
             warehouse.remove(mobilePhone.getImei());
             mobilePhone.setPrice(discountPrice);
-            this.mobilePhone = mobilePhone;
         } else {
             throw new WarehouseException();
         }
@@ -48,16 +43,12 @@ public class SaleShop implements Comparable<SaleShop> {
     public void setPercent(int percent) throws DiscountException {
         switch (percent) {
             case (10):
-                percent = 10;
                 break;
             case (20):
-                percent = 20;
                 break;
             case (30):
-                percent = 30;
                 break;
             case (40):
-                percent = 40;
                 break;
             default:
                 throw new DiscountException();

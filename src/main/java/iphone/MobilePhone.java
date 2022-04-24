@@ -13,14 +13,15 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
     private Display display;
     private Cpu cpu;
     private final String imei;
-    public static int createdMobile = 0;
+    private static int createdMobile = 0;
 
-    public MobilePhone(int model, String version, String imei) {
+    protected MobilePhone(int model, String version) {
         super(model, version);
-        this.imei = imei;
+        imei = createImei();
+        createdMobile++;
     }
 
-    public MobilePhone(int model, String version, Memory memory, Battery battery, Display display, Cpu cpu, int price) {
+    protected MobilePhone(int model, String version, Memory memory, Battery battery, Display display, Cpu cpu, int price) {
         super(model, version, price);
         this.memory = memory;
         this.battery = battery;
@@ -70,7 +71,6 @@ public abstract class MobilePhone extends Phone implements IInstallingApplicatio
     public static int getCreatedMobile() {
         return createdMobile;
     }
-
 
     public String createImei() {
         String result = "";

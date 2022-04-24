@@ -11,13 +11,11 @@ import java.util.function.BinaryOperator;
 public final class MobileStore {
     private static final Logger LOGGER = LogManager.getLogger(MobileStore.class);
     public static final String WORKING_TIME = "Yes";
-
-    public static BinaryOperator<Double> converter = (x, y) -> x * y;
-    public static IPrintCheck printCheck = (p) -> {
+    private static BinaryOperator<Double> converter = (x, y) -> x * y;
+    private static IPrintCheck print = (p) -> {
         Date currentDate = new Date();
         LOGGER.info(currentDate + ". Amount to be paid " + p + " $, or " + converter.apply(p, 2.9) + " BYR");
     };
-
 
     static {
         LOGGER.info("Does the Mobile Store open?(Yes/No) ");
@@ -32,10 +30,11 @@ public final class MobileStore {
         }
     }
 
-    public static void buying(List purchased, Map warehouse, MobilePhone mobilePhone, Client client) {
+
+    public static void buying(List<MobilePhone> purchased, Map<String, MobilePhone> warehouse, MobilePhone mobilePhone, Client client) {
         try {
             if (client.getAge() >= 18) {
-                printCheck.printCheck(mobilePhone.getPrice());
+                print.printCheck(mobilePhone.getPrice());
                 purchased.add(mobilePhone);
                 warehouse.remove(mobilePhone.getImei());
             } else throw new BuyAgeException("You're too younger to buy!");

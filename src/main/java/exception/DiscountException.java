@@ -1,6 +1,6 @@
 package exception;
 
-public class DiscountException extends  Exception{
+public class DiscountException extends Exception {
     public DiscountException() {
     }
 

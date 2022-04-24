@@ -7,7 +7,7 @@ public class Client implements Comparable<Client> {
     private String surname;
     private String patronymic;
     private int age;
-    public final String id;
+    private final String id;
 
 
     public Client(String firstName, String surname, String patronymic, int age) {
