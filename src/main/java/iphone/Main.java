@@ -6,6 +6,8 @@ import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
 import linkedList.LinkedList;
+import mobilestore.classes.Batteries;
+import mobilestore.dao.jdbcMySQLImpl.BatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +15,14 @@ import org.apache.commons.io.FileUtils;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -360,18 +368,33 @@ public class Main {
 
     }
 
+    private void connectDB() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        BatteryDAO bD= new BatteryDAO(10,"Samsung");
+        try {
+            bD.getAllBatteries();
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        }
+    }
+
+
     public static void main(String[] args) {
 
         Main main = new Main();
 //        main.runPreviousLesson();
 //        main.runThirdLesson();
 //        main.runFourthLesson();
-        main.runFifthLesson();
+//        main.runFifthLesson();
 //        main.useCollectionLesson();
 //        main.useUtilsLesson();
 //        main.useLambdaAndEnumLesson();
 //        main.useReflection();
 //        main.runThreads();
-
+        main.connectDB();
     }
 }

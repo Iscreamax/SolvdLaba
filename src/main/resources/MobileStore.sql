@@ -95,9 +95,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `MobileStore`.`Displays`
+-- Table `MobileStore`.`mobilestore.classes.Displays`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `MobileStore`.`Displays` (
+CREATE TABLE IF NOT EXISTS `MobileStore`.`mobilestore.classes.Displays` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipes` VARCHAR(45) NULL,
   `inch` DOUBLE NULL,
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `MobileStore`.`Specifications` (
     ON UPDATE CASCADE,
   CONSTRAINT `fk_specifications_display1`
     FOREIGN KEY (`display_id`)
-    REFERENCES `MobileStore`.`Displays` (`id`)
+    REFERENCES `MobileStore`.`mobilestore.classes.Displays` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_specifications_battery1`
