@@ -1,6 +1,8 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Users;
+import mobilestore.classes.User;
 
-public interface IUserDAO extends IBaseDAO<Users>{
+
+public interface IUserDAO extends IBaseDAO<User> {
+    void getAllBatteries();
 }

@@ -1,15 +1,15 @@
 package mobilestore.classes;
 
-public class Processors {
-    private long id;
+public class Processor {
+    private int id;
     private String name;
     private double frequency;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

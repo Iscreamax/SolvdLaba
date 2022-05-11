@@ -1,24 +1,15 @@
 package mobilestore.classes;
 
-public class Batteries {
-    private long id;
+public class Memory {
+    private int id;
     private String name;
     private int capacity;
-    private int price;
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

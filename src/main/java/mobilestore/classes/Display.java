@@ -1,24 +1,24 @@
 package mobilestore.classes;
 
-public class Displays {
-    private long id;
-    private String types;
+public class Display {
+    private int id;
+    private String type;
     private double inch;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getTypes() {
-        return types;
+    public String getType() {
+        return type;
     }
 
-    public void setTypes(String types) {
-        this.types = types;
+    public void setType(String types) {
+        this.type = types;
     }
 
     public double getInch() {

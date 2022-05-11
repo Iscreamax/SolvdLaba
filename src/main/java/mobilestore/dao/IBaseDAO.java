@@ -3,8 +3,8 @@ package mobilestore.dao;
 import java.sql.SQLException;
 
 public interface IBaseDAO <T>{
-    T getEntityById(Long id) throws SQLException;
-    void saveEntity(T entity);
+    T getEntityById(int id) throws SQLException;
+    void createEntity(T entity);
     void updateEntity(T entity) throws SQLException;
-    void removeEntity(long id);
+    void removeEntity(int id);
 }

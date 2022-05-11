@@ -1,15 +1,15 @@
 package mobilestore.classes;
 
-public class ServiceCenters {
-    private long id;
+public class ServiceCenter {
+    private int id;
     private String name;
     private String address;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,17 +1,17 @@
 package mobilestore.classes;
 
-public class Workers {
-    private long id;
+public class Worker {
+    private int id;
     private String position;
     private String experience;
-    private long userId;
-    private long mobileStoreId;
+    private int userId;
+    private int mobileStoreId;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,19 +31,19 @@ public class Workers {
         this.experience = experience;
     }
 
-    public long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public long getMobileStoreId() {
+    public int getMobileStoreId() {
         return mobileStoreId;
     }
 
-    public void setMobileStoreId(long mobileStoreId) {
+    public void setMobileStoreId(int mobileStoreId) {
         this.mobileStoreId = mobileStoreId;
     }
 }

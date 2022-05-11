@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Processors;
+import mobilestore.classes.Processor;
 
-public interface IProcessorDAO extends IBaseDAO<Processors> {
+public interface IProcessorDAO extends IBaseDAO<Processor> {
 }

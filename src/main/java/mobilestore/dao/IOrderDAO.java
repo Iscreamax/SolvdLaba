@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Orders;
+import mobilestore.classes.Order;
 
-public interface IOrderDAO extends IBaseDAO<Orders>{
+public interface IOrderDAO extends IBaseDAO<Order>{
 }

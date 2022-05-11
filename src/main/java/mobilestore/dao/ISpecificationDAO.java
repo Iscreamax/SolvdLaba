@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Specifications;
+import mobilestore.classes.Specification;
 
-public interface ISpecificationDAO extends IBaseDAO<Specifications>{
+public interface ISpecificationDAO extends IBaseDAO<Specification>{
 }

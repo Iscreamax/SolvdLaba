@@ -1,6 +1,9 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Clients;
+import mobilestore.classes.Client;
 
-public interface IClientDAO extends IBaseDAO<Clients> {
+
+
+public interface IClientDAO extends IBaseDAO<Client> {
+    void getAllBatteries ();
 }

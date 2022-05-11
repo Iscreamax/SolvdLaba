@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Licenses;
+import mobilestore.classes.License;
 
-public interface ILicenseDAO extends IBaseDAO<Licenses> {
+public interface ILicenseDAO extends IBaseDAO<License> {
 }

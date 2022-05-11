@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.MobilePhones;
+import mobilestore.classes.MobilePhone;
 
-public interface IMobilePhoneDAO extends IBaseDAO<MobilePhones>{
+public interface IMobilePhoneDAO extends IBaseDAO<MobilePhone>{
 }

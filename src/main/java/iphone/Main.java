@@ -6,7 +6,7 @@ import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
 import linkedList.LinkedList;
-import mobilestore.classes.Batteries;
+import mobilestore.dao.IBatteryDAO;
 import mobilestore.dao.jdbcMySQLImpl.BatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,13 +15,8 @@ import org.apache.commons.io.FileUtils;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.function.*;
@@ -53,7 +48,7 @@ public class Main {
     MobilePhone samsungE = new Samsung(34, "E", memory, batterySamsungAE, displaySamsung, cpuSamsung, 270);
     Landline philips = new Landline("Philips", 2230, "One", 60);
     Landline lg = new Landline("LG", 007, "Home", 110);
-
+    mobilestore.classes.Battery batteryBD= new mobilestore.classes.Battery(3,"Apple",1200,35);
 
     private void runPreviousLesson() {
         LOGGER.info("Previous Lesson" + "\n");
@@ -369,14 +364,15 @@ public class Main {
     }
 
     private void connectDB() {
+        IBatteryDAO b = new BatteryDAO();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        BatteryDAO bD= new BatteryDAO(10,"Samsung");
-        try {
-            bD.getAllBatteries();
+            LOGGER.info(b.getEntityById(3));
+            LOGGER.info(b.getEntityById(5));
+            b.getAllBatteries();
+            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 3550, 33));
+            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 4150, 41));
+            b.removeEntity(13);
+            b.updateEntity(batteryBD);
         } catch (SQLException e) {
             LOGGER.info(e);
         }

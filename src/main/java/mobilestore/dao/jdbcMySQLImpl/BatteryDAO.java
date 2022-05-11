@@ -1,7 +1,7 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
-import iphone.Main;
-import mobilestore.classes.Batteries;
+
+import mobilestore.classes.Battery;
 import mobilestore.dao.IBatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,20 +9,14 @@ import org.apache.logging.log4j.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class BatteryDAO implements IBatteryDAO {
     private static final Logger LOGGER = LogManager.getLogger(BatteryDAO.class);
-    private long id;
-    private String name;
-    private int capacity;
-
-    public BatteryDAO(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private Battery b = new Battery();
+    private Connection connection = null;
+    private PreparedStatement pr = null;
+    private ResultSet resultSet = null;
 
     private static Properties p = new Properties();
     private String url = p.getProperty("db.url");
@@ -39,55 +33,124 @@ public class BatteryDAO implements IBatteryDAO {
     }
 
     @Override
-    public List<Batteries> getAllBatteries() throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, username, password)) {
-            List<Batteries> list = new ArrayList<Batteries>();
-            try (PreparedStatement pr = con.prepareStatement("select *from users")) {
-                try (ResultSet rs = pr.executeQuery()) {
-                    while (rs.next()) {
-                        Batteries b = new Batteries();
-                        b.setId(rs.getLong("id"));
-                        b.setName(rs.getString("manufacturer"));
-                        b.setCapacity(rs.getInt("capacity"));
-                        b.setPrice(rs.getInt("price"));
-                        list.add(b);
-                    }
-                    return list;
-                }
+    public void getAllBatteries() {
+
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            pr = connection.prepareStatement("select * from batteries ");
+            pr.execute();
+            resultSet = pr.getResultSet();
+            while (resultSet.next()) {
+                b.setId(resultSet.getInt("id"));
+                b.setName(resultSet.getString("manufacturer"));
+                b.setCapacity(resultSet.getInt("capacity"));
+                b.setPrice(resultSet.getInt("price"));
+                LOGGER.info(b);
+            }
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (pr != null) pr.close();
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
             }
         }
     }
 
     @Override
-    public Batteries getEntityById(Long id) throws SQLException {
-        try (Connection con = DriverManager.getConnection(url, username, password)) {
-            String sqlCommand ="select *from users where id=?";
-            try (PreparedStatement pr = con.prepareStatement(sqlCommand)) {
-                pr.setLong(1, id);
-                try (ResultSet rs = pr.executeQuery()) {
-                    Batteries b = new Batteries();
-                    b.setId(rs.getLong("id"));
-                    b.setName(rs.getString("manufacturer"));
-                    b.setCapacity(rs.getInt("capacity"));
-                    b.setPrice(rs.getInt("price"));
-                    return b;
-                }
+    public Battery getEntityById(int id) {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            pr = connection.prepareStatement("select * from batteries where id=?");
+            pr.setInt(1, id);
+            pr.execute();
+            resultSet = pr.getResultSet();
+            while (resultSet.next()) {
+                b.setId(resultSet.getInt("id"));
+                b.setName(resultSet.getString("manufacturer"));
+                b.setCapacity(resultSet.getInt("capacity"));
+                b.setPrice(resultSet.getInt("price"));
+            }
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (pr != null) pr.close();
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+        }
+        return b;
+
+    }
+
+    @Override
+    public void createEntity(Battery entity) {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            pr = connection.prepareStatement("insert into batteries (manufacturer,capacity,price) values (?,?,?)");
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getCapacity());
+            pr.setInt(3, entity.getPrice());
+            pr.executeUpdate();
+            LOGGER.info("A new battery has been created: " + entity);
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (pr != null) pr.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
             }
         }
     }
 
     @Override
-    public void saveEntity(Batteries entity) {
-
+    public void updateEntity(Battery entity) {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            pr = connection.prepareStatement("update batteries set manufacturer=?,capacity=?,price=? where id=?");
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getCapacity());
+            pr.setInt(3, entity.getPrice());
+            pr.setInt(4, entity.getId());
+            pr.executeUpdate();
+            LOGGER.info("Battery data has been updated.");
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (pr != null) pr.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+        }
     }
 
     @Override
-    public void updateEntity(Batteries entity) throws SQLException {
-
-    }
-
-    @Override
-    public void removeEntity(long id) {
-
+    public void removeEntity(int id) {
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            pr = connection.prepareStatement("delete from batteries where id=?");
+            pr.setInt(1, id);
+            pr.executeUpdate();
+            LOGGER.info("The battery has been removed.");
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (pr != null) pr.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+        }
     }
 }

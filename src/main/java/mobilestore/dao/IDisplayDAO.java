@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Displays;
+import mobilestore.classes.Display;
 
-public interface IDisplayDAO extends IBaseDAO<Displays> {
+public interface IDisplayDAO extends IBaseDAO<Display> {
 }

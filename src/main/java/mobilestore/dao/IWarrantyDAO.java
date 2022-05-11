@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Warranties;
+import mobilestore.classes.Warranty;
 
-public interface IWarrantyDAO extends IBaseDAO<Warranties>{
+public interface IWarrantyDAO extends IBaseDAO<Warranty>{
 }

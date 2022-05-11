@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Workers;
+import mobilestore.classes.Worker;
 
-public interface IWorkerDAO extends IBaseDAO<Workers>{
+public interface IWorkerDAO extends IBaseDAO<Worker>{
 }

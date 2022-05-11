@@ -2,26 +2,26 @@ package mobilestore.classes;
 
 import java.util.List;
 
-public class MobilePhones {
-    private long id;
-    private long mobileStoresId;
+public class MobilePhone {
+    private int id;
+    private int mobileStoresId;
     private long imei;
     private String name;
-    private List<Specifications> specifications;
+    private List<Specification> specifications;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public long getMobileStoresId() {
+    public int getMobileStoresId() {
         return mobileStoresId;
     }
 
-    public void setMobileStoresId(long mobileStoresId) {
+    public void setMobileStoresId(int mobileStoresId) {
         this.mobileStoresId = mobileStoresId;
     }
 
@@ -41,11 +41,11 @@ public class MobilePhones {
         this.name = name;
     }
 
-    public List<Specifications> getSpecifications() {
+    public List<Specification> getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(List<Specifications> specifications) {
+    public void setSpecifications(List<Specification> specifications) {
         this.specifications = specifications;
     }
 }

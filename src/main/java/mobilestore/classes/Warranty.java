@@ -2,25 +2,25 @@ package mobilestore.classes;
 
 import java.util.List;
 
-public class Warranties {
-    private long id;
-    private List<Clients> clientsId;
+public class Warranty {
+    private int id;
+    private List<Client> clientsId;
     private String nameBreakdown;
-    private long mobilePhoneId;
+    private int mobilePhoneId;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public List<Clients> getClientsId() {
+    public List<Client> getClientsId() {
         return clientsId;
     }
 
-    public void setClientsId(List<Clients> clientsId) {
+    public void setClientsId(List<Client> clientsId) {
         this.clientsId = clientsId;
     }
 
@@ -32,11 +32,11 @@ public class Warranties {
         this.nameBreakdown = nameBreakdown;
     }
 
-    public long getMobilePhoneId() {
+    public int getMobilePhoneId() {
         return mobilePhoneId;
     }
 
-    public void setMobilePhoneId(long mobilePhoneId) {
+    public void setMobilePhoneId(int mobilePhoneId) {
         this.mobilePhoneId = mobilePhoneId;
     }
 

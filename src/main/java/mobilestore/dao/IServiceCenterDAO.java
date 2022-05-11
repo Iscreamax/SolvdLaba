@@ -1,6 +1,6 @@
 package mobilestore.dao;
 
-import mobilestore.classes.ServiceCenters;
+import mobilestore.classes.ServiceCenter;
 
-public interface IServiceCenterDAO extends IBaseDAO<ServiceCenters> {
+public interface IServiceCenterDAO extends IBaseDAO<ServiceCenter> {
 }

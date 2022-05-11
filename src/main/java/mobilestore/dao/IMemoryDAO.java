@@ -1,6 +1,7 @@
 package mobilestore.dao;
 
-import mobilestore.classes.Memories;
+import mobilestore.classes.Memory;
 
-public interface IMemoryDAO extends IBaseDAO<Memories> {
+public interface IMemoryDAO extends IBaseDAO<Memory> {
+    void getAllBatteries ();
 }

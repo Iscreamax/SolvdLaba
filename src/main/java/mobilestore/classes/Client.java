@@ -1,16 +1,16 @@
 package mobilestore.classes;
 
-public class Clients {
-    private long id;
+public class Client {
+    private int id;
     private String creditCardNumber;
-    private long userId;
+    private int userId;
     private String validTHRU;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -22,11 +22,11 @@ public class Clients {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public long getUser_id() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUser_id(long user_id) {
+    public void setUserId(int user_id) {
         this.userId = userId;
     }
 

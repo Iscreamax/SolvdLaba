@@ -1,17 +1,17 @@
 package mobilestore.classes;
 
-public class Users {
-    private long id;
+public class User {
+    private int id;
     private int age;
     private String name;
     private String surname;
     private String email;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
