@@ -1,7 +1,8 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
 import mobilestore.classes.Client;
-import mobilestore.dao.IClientDAO;
+import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.dao.interfaces.IClientDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class ClientDAO implements IClientDAO {
+public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(ClientDAO.class);
     private Client c = new Client();
@@ -18,25 +19,11 @@ public class ClientDAO implements IClientDAO {
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
-    private static Properties p = new Properties();
-    private String url = p.getProperty("db.url");
-    private String username = p.getProperty("db.username");
-    private String password = p.getProperty("db.password");
-
-    static {
-
-        try (FileInputStream in = new FileInputStream("src/main/resources/db.properties")) {
-            p.load(in);
-        } catch (IOException e) {
-            LOGGER.info(e);
-        }
-    }
-
     @Override
     public void getAllBatteries() {
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from clients ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -51,7 +38,6 @@ public class ClientDAO implements IClientDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -63,7 +49,7 @@ public class ClientDAO implements IClientDAO {
     @Override
     public Client getEntityById(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from clients where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -78,7 +64,6 @@ public class ClientDAO implements IClientDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -92,7 +77,7 @@ public class ClientDAO implements IClientDAO {
     @Override
     public void createEntity(Client entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("insert into clients (creditCardNumber,userId,validTHRU) values (?,?,?)");
             pr.setString(1, entity.getCreditCardNumber());
             pr.setInt(2, entity.getUserId());
@@ -103,7 +88,6 @@ public class ClientDAO implements IClientDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -114,7 +98,7 @@ public class ClientDAO implements IClientDAO {
     @Override
     public void updateEntity(Client entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("update clients set creditCardNumber=?,userId=?,validTHRU=? where id=?");
             pr.setString(1, entity.getCreditCardNumber());
             pr.setInt(2, entity.getUserId());
@@ -126,7 +110,6 @@ public class ClientDAO implements IClientDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -137,7 +120,7 @@ public class ClientDAO implements IClientDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("delete from clients where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -146,7 +129,6 @@ public class ClientDAO implements IClientDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);

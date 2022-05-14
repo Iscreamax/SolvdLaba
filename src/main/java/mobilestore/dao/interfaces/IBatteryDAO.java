@@ -1,8 +1,6 @@
-package mobilestore.dao;
+package mobilestore.dao.interfaces;
 
 import mobilestore.classes.Battery;
-
-import java.sql.SQLException;
 
 public interface IBatteryDAO extends IBaseDAO<Battery> {
     void getAllBatteries ();

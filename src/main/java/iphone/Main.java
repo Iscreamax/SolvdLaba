@@ -6,7 +6,7 @@ import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
 import linkedList.LinkedList;
-import mobilestore.dao.IBatteryDAO;
+import mobilestore.dao.interfaces.IBatteryDAO;
 import mobilestore.dao.jdbcMySQLImpl.BatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -371,6 +371,7 @@ public class Main {
             b.getAllBatteries();
             b.createEntity(new mobilestore.classes.Battery("Xiaomi", 3550, 33));
             b.createEntity(new mobilestore.classes.Battery("Xiaomi", 4150, 41));
+            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 4200, 47));
             b.removeEntity(13);
             b.updateEntity(batteryBD);
         } catch (SQLException e) {

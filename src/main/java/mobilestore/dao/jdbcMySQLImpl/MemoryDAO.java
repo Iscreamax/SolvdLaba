@@ -1,7 +1,8 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
 import mobilestore.classes.Memory;
-import mobilestore.dao.IMemoryDAO;
+import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.dao.interfaces.IMemoryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,32 +11,18 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class MemoryDAO implements IMemoryDAO {
+public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     private static final Logger LOGGER = LogManager.getLogger(MemoryDAO.class);
     private Memory m = new Memory();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
-    private static Properties p = new Properties();
-    private String url = p.getProperty("db.url");
-    private String username = p.getProperty("db.username");
-    private String password = p.getProperty("db.password");
-
-    static {
-
-        try (FileInputStream in = new FileInputStream("src/main/resources/db.properties")) {
-            p.load(in);
-        } catch (IOException e) {
-            LOGGER.info(e);
-        }
-    }
-
     @Override
     public void getAllBatteries() {
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from memories ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -49,7 +36,6 @@ public class MemoryDAO implements IMemoryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -61,7 +47,7 @@ public class MemoryDAO implements IMemoryDAO {
     @Override
     public Memory getEntityById(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from memories where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -75,7 +61,6 @@ public class MemoryDAO implements IMemoryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -89,7 +74,7 @@ public class MemoryDAO implements IMemoryDAO {
     @Override
     public void createEntity(Memory entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("insert into memories (manufacturer,capacity) values (?,?)");
             pr.setString(1, entity.getName());
             pr.setInt(2, entity.getCapacity());
@@ -99,7 +84,6 @@ public class MemoryDAO implements IMemoryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -110,7 +94,7 @@ public class MemoryDAO implements IMemoryDAO {
     @Override
     public void updateEntity(Memory entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("update memories set manufacturer=?,capacity=? where id=?");
             pr.setString(1, entity.getName());
             pr.setInt(2, entity.getCapacity());
@@ -121,7 +105,6 @@ public class MemoryDAO implements IMemoryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -132,7 +115,7 @@ public class MemoryDAO implements IMemoryDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("delete from memories where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -141,7 +124,6 @@ public class MemoryDAO implements IMemoryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);

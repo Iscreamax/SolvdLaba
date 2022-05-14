@@ -2,41 +2,27 @@ package mobilestore.dao.jdbcMySQLImpl;
 
 
 import mobilestore.classes.Battery;
-import mobilestore.dao.IBatteryDAO;
+import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.dao.connectionPool.ConnectionPool;
+import mobilestore.dao.interfaces.IBatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
-public class BatteryDAO implements IBatteryDAO {
+public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
     private static final Logger LOGGER = LogManager.getLogger(BatteryDAO.class);
     private Battery b = new Battery();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
-    private static Properties p = new Properties();
-    private String url = p.getProperty("db.url");
-    private String username = p.getProperty("db.username");
-    private String password = p.getProperty("db.password");
-
-    static {
-
-        try (FileInputStream in = new FileInputStream("src/main/resources/db.properties")) {
-            p.load(in);
-        } catch (IOException e) {
-            LOGGER.info(e);
-        }
-    }
 
     @Override
     public void getAllBatteries() {
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from batteries ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -50,8 +36,8 @@ public class BatteryDAO implements IBatteryDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -63,7 +49,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public Battery getEntityById(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = ConnectionPool.newInstance().takeConnection();
             pr = connection.prepareStatement("select * from batteries where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -77,8 +63,8 @@ public class BatteryDAO implements IBatteryDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -92,7 +78,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void createEntity(Battery entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("insert into batteries (manufacturer,capacity,price) values (?,?,?)");
             pr.setString(1, entity.getName());
             pr.setInt(2, entity.getCapacity());
@@ -102,8 +88,8 @@ public class BatteryDAO implements IBatteryDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -114,7 +100,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void updateEntity(Battery entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("update batteries set manufacturer=?,capacity=?,price=? where id=?");
             pr.setString(1, entity.getName());
             pr.setInt(2, entity.getCapacity());
@@ -125,8 +111,8 @@ public class BatteryDAO implements IBatteryDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -137,7 +123,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("delete from batteries where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -146,7 +132,6 @@ public class BatteryDAO implements IBatteryDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);

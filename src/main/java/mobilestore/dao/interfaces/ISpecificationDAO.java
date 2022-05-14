@@ -1,4 +1,4 @@
-package mobilestore.dao;
+package mobilestore.dao.interfaces;
 
 import mobilestore.classes.Specification;
 

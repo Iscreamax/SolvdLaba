@@ -1,7 +1,8 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
 import mobilestore.classes.MobileStore;
-import mobilestore.dao.IMobileStoreDAO;
+import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.dao.interfaces.IMobileStoreDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,32 +11,18 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
-public class MobileStoreDAO implements IMobileStoreDAO {
+public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO {
     private static final Logger LOGGER = LogManager.getLogger(MobileStoreDAO.class);
     private MobileStore mb = new MobileStore();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
-    private static Properties p = new Properties();
-    private String url = p.getProperty("db.url");
-    private String username = p.getProperty("db.username");
-    private String password = p.getProperty("db.password");
-
-    static {
-
-        try (FileInputStream in = new FileInputStream("src/main/resources/db.properties")) {
-            p.load(in);
-        } catch (IOException e) {
-            LOGGER.info(e);
-        }
-    }
-
     @Override
     public void getAllBatteries() {
 
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from mobile_stores ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -49,7 +36,6 @@ public class MobileStoreDAO implements IMobileStoreDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -61,7 +47,7 @@ public class MobileStoreDAO implements IMobileStoreDAO {
     @Override
     public MobileStore getEntityById(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("select * from mobile_stores where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -75,7 +61,6 @@ public class MobileStoreDAO implements IMobileStoreDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
@@ -89,7 +74,7 @@ public class MobileStoreDAO implements IMobileStoreDAO {
     @Override
     public void createEntity(MobileStore entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("insert into mobile_stores (name,address) values (?,?)");
             pr.setString(1, entity.getName());
             pr.setString(2, entity.getAddress());
@@ -99,7 +84,6 @@ public class MobileStoreDAO implements IMobileStoreDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -110,7 +94,7 @@ public class MobileStoreDAO implements IMobileStoreDAO {
     @Override
     public void updateEntity(MobileStore entity) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("update mobile_stores set name=?,address=?where id=?");
             pr.setString(1, entity.getName());
             pr.setString(2, entity.getAddress());
@@ -120,7 +104,6 @@ public class MobileStoreDAO implements IMobileStoreDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
@@ -131,7 +114,7 @@ public class MobileStoreDAO implements IMobileStoreDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = DriverManager.getConnection(url, username, password);
+            connection = getConnectionPool().takeConnection();
             pr = connection.prepareStatement("delete from mobile_store where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -140,7 +123,6 @@ public class MobileStoreDAO implements IMobileStoreDAO {
             LOGGER.info(e);
         } finally {
             try {
-                if (connection != null) connection.close();
                 if (pr != null) pr.close();
             } catch (SQLException e) {
                 LOGGER.info(e);
