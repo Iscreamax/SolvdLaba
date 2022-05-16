@@ -1,5 +1,13 @@
 package mobilestore.modules;
 
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+@XmlRootElement(name = "specification")
+@XmlType(propOrder = {"id", "processor", "display", "battery", "memory"})
 public class Specification {
 
     private int id;
@@ -12,6 +20,7 @@ public class Specification {
         return id;
     }
 
+    @XmlAttribute
     public void setId(int id) {
         this.id = id;
     }
@@ -20,6 +29,7 @@ public class Specification {
         return processor;
     }
 
+    @XmlElement
     public void setProcessor(Processor processor) {
         this.processor = processor;
     }
@@ -28,6 +38,7 @@ public class Specification {
         return display;
     }
 
+    @XmlElement
     public void setDisplay(Display display) {
         this.display = display;
     }
@@ -36,6 +47,8 @@ public class Specification {
         return battery;
     }
 
+    @XmlElement
+
     public void setBattery(Battery battery) {
         this.battery = battery;
     }
@@ -43,6 +56,8 @@ public class Specification {
     public Memory getMemory() {
         return memory;
     }
+
+    @XmlElement
 
     public void setMemory(Memory memory) {
         this.memory = memory;

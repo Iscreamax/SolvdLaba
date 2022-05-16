@@ -1,8 +1,14 @@
 package mobilestore.modules;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "battery")
+@XmlType(propOrder = {"manufacture", "type", "inch", "price"})
 public class Display {
     private String manufacture;
-    private String types;
+    private String type;
     private double inch;
     private int price;
 
@@ -10,6 +16,7 @@ public class Display {
         return price;
     }
 
+    @XmlElement
     public void setPrice(int price) {
         this.price = price;
     }
@@ -18,22 +25,25 @@ public class Display {
         return manufacture;
     }
 
+    @XmlElement
     public void setManufacture(String manufacture) {
         this.manufacture = manufacture;
     }
 
-    public String getTypes() {
-        return types;
+    public String getType() {
+        return type;
     }
 
-    public void setTypes(String types) {
-        this.types = types;
+    @XmlElement
+    public void setType(String types) {
+        this.type = type;
     }
 
     public double getInch() {
         return inch;
     }
 
+    @XmlElement
     public void setInch(double inch) {
         this.inch = inch;
     }
@@ -42,7 +52,7 @@ public class Display {
     public String toString() {
         return "{" +
                 "manufacture='" + manufacture + '\'' +
-                ", types='" + types + '\'' +
+                ", types='" + type + '\'' +
                 ", inch=" + inch +
                 ", price=" + price +
                 '}';

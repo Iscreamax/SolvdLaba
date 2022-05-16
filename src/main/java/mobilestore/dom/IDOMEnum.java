@@ -9,7 +9,6 @@ public interface IDOMEnum {
     String TAG_PHONE_STORE = "mobile_store";
     String TAG_PHONE_STORE_NAME = "name";
     String TAG_PHONE_STORE_ADDRESS = "address";
-    String TAG_PHONE_STORE_SPECIFICATION = "specification";
     String TAG_PHONE_STORE_SPECIFICATION_BATTERY = "battery";
     String TAG_PHONE_STORE_SPECIFICATION_BATTERY_MANUFACTURER = "manufacturer";
     String TAG_PHONE_STORE_SPECIFICATION_BATTERY_CAPACITY = "capacity";

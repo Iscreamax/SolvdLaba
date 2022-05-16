@@ -1,5 +1,11 @@
 package mobilestore.modules;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "memory")
+@XmlType(propOrder = {"name", "capacity", "price"})
 public class Memory {
     private String name;
     private int capacity;
@@ -9,6 +15,7 @@ public class Memory {
         return price;
     }
 
+    @XmlElement
     public void setPrice(int price) {
         this.price = price;
     }
@@ -17,6 +24,7 @@ public class Memory {
         return name;
     }
 
+    @XmlElement
     public void setName(String name) {
         this.name = name;
     }
@@ -25,6 +33,7 @@ public class Memory {
         return capacity;
     }
 
+    @XmlElement
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }

@@ -5,16 +5,22 @@ import exception.DiscountException;
 import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
+import jakarta.xml.bind.JAXBException;
 import linkedList.LinkedList;
 import mobilestore.dao.interfaces.IBatteryDAO;
 import mobilestore.dao.jdbcMySQLImpl.BatteryDAO;
+import mobilestore.dom.RealDom;
+import mobilestore.jaxb.JaxbWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.io.FileUtils;
+import org.xml.sax.SAXException;
 
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.sql.SQLException;
@@ -48,7 +54,7 @@ public class Main {
     MobilePhone samsungE = new Samsung(34, "E", memory, batterySamsungAE, displaySamsung, cpuSamsung, 270);
     Landline philips = new Landline("Philips", 2230, "One", 60);
     Landline lg = new Landline("LG", 007, "Home", 110);
-    mobilestore.classes.Battery batteryBD= new mobilestore.classes.Battery(3,"Apple",1200,35);
+    mobilestore.classes.Battery batteryBD = new mobilestore.classes.Battery(3, "Apple", 1200, 35);
 
     private void runPreviousLesson() {
         LOGGER.info("Previous Lesson" + "\n");
@@ -379,6 +385,31 @@ public class Main {
         }
     }
 
+    private void runDom() {
+        try {
+            RealDom.run();
+        } catch (ParserConfigurationException e) {
+            LOGGER.info(e);
+        } catch (IOException e) {
+            LOGGER.info(e);
+        } catch (SAXException e) {
+            LOGGER.info(e);
+        }
+    }
+    private void runJAXB(){
+        JaxbWriter.marshal();
+        mobilestore.modules.MobilePhone mobilePhone = new mobilestore.modules.MobilePhone();
+
+        try {
+            mobilePhone= JaxbWriter.unmarshal();
+            LOGGER.info(mobilePhone);
+        } catch (JAXBException e) {
+            LOGGER.info(e);
+        } catch (FileNotFoundException e) {
+            LOGGER.info(e);
+        }
+    }
+
 
     public static void main(String[] args) {
 
@@ -393,5 +424,7 @@ public class Main {
 //        main.useReflection();
 //        main.runThreads();
 //        main.connectDB();
+//        main.runDom();
+        main.runJAXB();
     }
 }
