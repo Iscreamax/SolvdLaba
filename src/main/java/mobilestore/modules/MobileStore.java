@@ -1,17 +1,8 @@
-package mobilestore.classes;
+package mobilestore.modules;
 
 public class MobileStore {
-    private int id;
     private String name;
     private String address;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -31,7 +22,7 @@ public class MobileStore {
 
     @Override
     public String toString() {
-        return "MobileStore{" +
+        return "{" +
                 "name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';

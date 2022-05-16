@@ -4,6 +4,15 @@ public class Memory {
     private int id;
     private String name;
     private int capacity;
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public int getId() {
         return id;
@@ -27,5 +36,14 @@ public class Memory {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "name='" + name + '\'' +
+                ", capacity=" + capacity +
+                ", price=" + price +
+                '}';
     }
 }

@@ -1,15 +1,12 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
 import mobilestore.classes.Client;
-import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.connectionPool.AbstractClassJDBC;
 import mobilestore.dao.interfaces.IClientDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
 public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
 
@@ -37,6 +34,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -63,6 +61,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -87,6 +86,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -109,6 +109,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -128,6 +129,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {

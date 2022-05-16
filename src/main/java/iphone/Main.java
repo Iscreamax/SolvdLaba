@@ -392,6 +392,6 @@ public class Main {
 //        main.useLambdaAndEnumLesson();
 //        main.useReflection();
 //        main.runThreads();
-        main.connectDB();
+//        main.connectDB();
     }
 }

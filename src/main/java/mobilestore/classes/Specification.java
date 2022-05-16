@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Specification {
     private int id;
-    private List<Processor> cpuId;
-    private List<Display> displayId;
-    private List<Battery>batteryId;
-    private List<Memory>memoryId;
+    private List<Processor> processor;
+    private List<Display> display;
+    private List<Battery>battery;
+    private List<Memory>memory;
 
     public int getId() {
         return id;
@@ -17,35 +17,35 @@ public class Specification {
         this.id = id;
     }
 
-    public List<Processor> getCpuId() {
-        return cpuId;
+    public List<Processor> getProcessor() {
+        return processor;
     }
 
-    public void setCpuId(List<Processor> cpuId) {
-        this.cpuId = cpuId;
+    public void setProcessor(List<Processor> processor) {
+        this.processor = processor;
     }
 
-    public List<Display> getDisplayId() {
-        return displayId;
+    public List<Display> getDisplay() {
+        return display;
     }
 
-    public void setDisplayId(List<Display> displayId) {
-        this.displayId = displayId;
+    public void setDisplay(List<Display> display) {
+        this.display = display;
     }
 
-    public List<Battery> getBatteryId() {
-        return batteryId;
+    public List<Battery> getBattery() {
+        return battery;
     }
 
-    public void setBatteryId(List<Battery> batteryId) {
-        this.batteryId = batteryId;
+    public void setBattery(List<Battery> battery) {
+        this.battery = battery;
     }
 
-    public List<Memory> getMemoryId() {
-        return memoryId;
+    public List<Memory> getMemory() {
+        return memory;
     }
 
-    public void setMemoryId(List<Memory> memoryId) {
-        this.memoryId = memoryId;
+    public void setMemory(List<Memory> memory) {
+        this.memory = memory;
     }
 }

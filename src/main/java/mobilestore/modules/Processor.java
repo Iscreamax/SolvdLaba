@@ -1,18 +1,9 @@
-package mobilestore.classes;
+package mobilestore.modules;
 
 public class Processor {
-    private int id;
     private String name;
     private String frequency;
     private int noc;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -40,7 +31,7 @@ public class Processor {
 
     @Override
     public String toString() {
-        return "Processor{" +
+        return "{" +
                 ", name='" + name + '\'' +
                 ", frequency='" + frequency + '\'' +
                 ", noc=" + noc +

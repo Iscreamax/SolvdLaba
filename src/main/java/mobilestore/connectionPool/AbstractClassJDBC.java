@@ -1,4 +1,4 @@
-package mobilestore.dao.connectionPool;
+package mobilestore.connectionPool;
 
 public class AbstractClassJDBC {
     private ConnectionPool connectionPool = ConnectionPool.newInstance();

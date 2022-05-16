@@ -1,0 +1,30 @@
+package mobilestore.dom;
+
+public interface IDOMEnum {
+    String TAG_PHONE = "mobile_phone";
+    String TAG_PHONE_NAME = "name";
+    String TAG_PHONE_YEAR = "year";
+    String TAG_PHONE_IMEI = "imei";
+    String TAG_PHONE_PRICE = "price";
+    String TAG_PHONE_STORE = "mobile_store";
+    String TAG_PHONE_STORE_NAME = "name";
+    String TAG_PHONE_STORE_ADDRESS = "address";
+    String TAG_PHONE_STORE_SPECIFICATION = "specification";
+    String TAG_PHONE_STORE_SPECIFICATION_BATTERY = "battery";
+    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_MANUFACTURER = "manufacturer";
+    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_CAPACITY = "capacity";
+    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_PRICE = "price";
+    String TAG_PHONE_STORE_SPECIFICATION_MEMORY = "memory";
+    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_MANUFACTURER = "manufacturer";
+    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_CAPACITY = "capacity";
+    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_PRICE = "price";
+    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY = "display";
+    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_MANUFACTURER = "manufacturer";
+    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_TYPE = "type";
+    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_INCH = "inch";
+    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_PRICE = "price";
+    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR = "processor";
+    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_MANUFACTURER = "name";
+    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_FREQUENCY = "frequency";
+    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_NOC = "number_of_cores";
+}

@@ -1,4 +1,4 @@
-package mobilestore.dao.connectionPool;
+package mobilestore.connectionPool;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);

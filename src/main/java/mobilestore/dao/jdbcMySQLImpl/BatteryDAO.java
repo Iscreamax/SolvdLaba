@@ -2,8 +2,8 @@ package mobilestore.dao.jdbcMySQLImpl;
 
 
 import mobilestore.classes.Battery;
-import mobilestore.dao.connectionPool.AbstractClassJDBC;
-import mobilestore.dao.connectionPool.ConnectionPool;
+import mobilestore.connectionPool.AbstractClassJDBC;
+import mobilestore.connectionPool.ConnectionPool;
 import mobilestore.dao.interfaces.IBatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -131,6 +131,7 @@ public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {

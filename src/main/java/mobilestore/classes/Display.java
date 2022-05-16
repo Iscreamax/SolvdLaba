@@ -2,8 +2,10 @@ package mobilestore.classes;
 
 public class Display {
     private int id;
+    private String manufacturer;
     private String type;
-    private double inch;
+    private String inch;
+    private int price;
 
     public int getId() {
         return id;
@@ -21,11 +23,38 @@ public class Display {
         this.type = types;
     }
 
-    public double getInch() {
+    public String getInch() {
         return inch;
     }
 
-    public void setInch(double inch) {
+    public void setInch(String inch) {
         this.inch = inch;
     }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Display{" +
+                "manufacturer='" + manufacturer + '\'' +
+                ", type='" + type + '\'' +
+                ", inch=" + inch +
+                ", price=" + price +
+                '}';
+    }
+
 }

@@ -1,28 +1,17 @@
-package iphone;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+package mobilestore.modules;
 
 public class Display {
     private String manufacture;
     private String types;
     private double inch;
+    private int price;
 
-
-    public Display() {
-
+    public int getPrice() {
+        return price;
     }
 
-    public Display(String manufacture, String types) {
-        this.manufacture = manufacture;
-        this.types = types;
-
-    }
-
-    public Display(String manufacture, String types, double inch) {
-        this.manufacture = manufacture;
-        this.types = types;
-        this.inch = inch;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getManufacture() {
@@ -51,7 +40,11 @@ public class Display {
 
     @Override
     public String toString() {
-        return ("\n" + "iphone.Display:" + "\n" + "Manufacture - " + getManufacture() + "\n" + "Types - " + getTypes() + "\n" + "Inch - " + getInch());
+        return "{" +
+                "manufacture='" + manufacture + '\'' +
+                ", types='" + types + '\'' +
+                ", inch=" + inch +
+                ", price=" + price +
+                '}';
     }
-
 }

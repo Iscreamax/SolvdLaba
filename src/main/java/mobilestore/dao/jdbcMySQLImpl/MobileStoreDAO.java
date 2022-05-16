@@ -1,15 +1,12 @@
 package mobilestore.dao.jdbcMySQLImpl;
 
 import mobilestore.classes.MobileStore;
-import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.connectionPool.AbstractClassJDBC;
 import mobilestore.dao.interfaces.IMobileStoreDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
 public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO {
     private static final Logger LOGGER = LogManager.getLogger(MobileStoreDAO.class);
@@ -35,6 +32,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -60,6 +58,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -83,6 +82,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -103,6 +103,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -122,6 +123,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {

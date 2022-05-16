@@ -1,6 +1,4 @@
-package mobilestore.classes;
-
-import java.util.List;
+package mobilestore.modules;
 
 public class MobilePhone {
     private int id;
@@ -9,7 +7,7 @@ public class MobilePhone {
     private String name;
     private int year;
     private int price;
-    private List<Specification> specifications;
+    private Specification specifications;
 
     public int getYear() {
         return year;
@@ -57,11 +55,24 @@ public class MobilePhone {
         this.name = name;
     }
 
-    public List<Specification> getSpecifications() {
+    public Specification getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(List<Specification> specifications) {
+    public void setSpecifications(Specification specifications) {
         this.specifications = specifications;
     }
+
+    @Override
+    public String toString() {
+        return "\n"+"MobilePhone{" +
+                "Name='" + name + '\'' +
+                ", Year=" + year +
+                ", Price=" + price +
+                ", Imei=" + imei +
+                ", MobileStores=" + mobileStores +
+                ", Specifications=" + specifications +
+                '}'+ "\n" ;
+    }
+
 }

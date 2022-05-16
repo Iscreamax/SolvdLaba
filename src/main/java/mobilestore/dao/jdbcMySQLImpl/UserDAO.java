@@ -2,15 +2,12 @@ package mobilestore.dao.jdbcMySQLImpl;
 
 
 import mobilestore.classes.User;
-import mobilestore.dao.connectionPool.AbstractClassJDBC;
+import mobilestore.connectionPool.AbstractClassJDBC;
 import mobilestore.dao.interfaces.IUserDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 
 public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAO.class);
@@ -38,6 +35,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -65,6 +63,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -90,6 +89,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -113,6 +113,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -132,6 +133,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
