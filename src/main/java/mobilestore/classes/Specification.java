@@ -48,4 +48,11 @@ public class Specification {
     public void setMemory(List<Memory> memory) {
         this.memory = memory;
     }
+
+    public Specification(List<Processor> processor, List<Display> display, List<Battery> battery, List<Memory> memory) {
+        this.processor = processor;
+        this.display = display;
+        this.battery = battery;
+        this.memory = memory;
+    }
 }

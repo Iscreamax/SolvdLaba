@@ -1,29 +1,34 @@
 package mobilestore.dom;
 
 public interface IDOMEnum {
-    String TAG_PHONE = "mobile_phone";
-    String TAG_PHONE_NAME = "name";
-    String TAG_PHONE_YEAR = "year";
-    String TAG_PHONE_IMEI = "imei";
-    String TAG_PHONE_PRICE = "price";
-    String TAG_PHONE_STORE = "mobile_store";
-    String TAG_PHONE_STORE_NAME = "name";
-    String TAG_PHONE_STORE_ADDRESS = "address";
-    String TAG_PHONE_STORE_SPECIFICATION_BATTERY = "battery";
-    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_MANUFACTURER = "manufacturer";
-    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_CAPACITY = "capacity";
-    String TAG_PHONE_STORE_SPECIFICATION_BATTERY_PRICE = "price";
-    String TAG_PHONE_STORE_SPECIFICATION_MEMORY = "memory";
-    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_MANUFACTURER = "manufacturer";
-    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_CAPACITY = "capacity";
-    String TAG_PHONE_STORE_SPECIFICATION_MEMORY_PRICE = "price";
-    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY = "display";
-    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_MANUFACTURER = "manufacturer";
-    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_TYPE = "type";
-    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_INCH = "inch";
-    String TAG_PHONE_STORE_SPECIFICATION_DISPLAY_PRICE = "price";
-    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR = "processor";
-    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_MANUFACTURER = "name";
-    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_FREQUENCY = "frequency";
-    String TAG_PHONE_STORE_SPECIFICATION_PROCESSOR_NOC = "number_of_cores";
+    String PHONE = "mobile_phone";
+    String PHONE_NAME = "name";
+    String PHONE_YEAR = "year";
+    String PHONE_IMEI = "imei";
+    String PHONE_PRICE = "price";
+    public interface IStore {
+        String STORE = "mobile_store";
+        String STORE_NAME = "name";
+        String STORE_ADDRESS = "address";
+
+    }
+    public interface ISpecification{
+        String BATTERY = "battery";
+        String BATTERY_MANUFACTURER = "manufacturer";
+        String BATTERY_CAPACITY = "capacity";
+        String BATTERY_PRICE = "price";
+        String MEMORY = "memory";
+        String MEMORY_MANUFACTURER = "manufacturer";
+        String MEMORY_CAPACITY = "capacity";
+        String MEMORY_PRICE = "price";
+        String DISPLAY = "display";
+        String DISPLAY_MANUFACTURER = "manufacturer";
+        String DISPLAY_TYPE = "type";
+        String DISPLAY_INCH = "inch";
+        String DISPLAY_PRICE = "price";
+        String PROCESSOR = "processor";
+        String PROCESSOR_MANUFACTURER = "name";
+        String PROCESSOR_FREQUENCY = "frequency";
+        String PROCESSOR_NOC = "number_of_cores";
+    }
 }

@@ -5,5 +5,5 @@ import mobilestore.classes.Client;
 
 
 public interface IClientDAO extends IBaseDAO<Client> {
-    void getAllBatteries ();
+    void getAllClients ();
 }

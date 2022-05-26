@@ -1,5 +1,7 @@
-package mobilestore.modules;
+package mobilestore.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -8,13 +10,26 @@ import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "specification")
 @XmlType(propOrder = {"id", "processor", "display", "battery", "memory"})
+@JsonPropertyOrder({"id", "processor", "display", "battery", "memory"})
 public class Specification {
-
+    @JsonProperty
     private int id;
+    @JsonProperty
     private Processor processor;
+    @JsonProperty
     private Display display;
+    @JsonProperty
     private Battery battery;
+    @JsonProperty
     private Memory memory;
+
+    public Specification(){}
+    public Specification(Processor processor, Display display, Battery battery, Memory memory) {
+        this.processor = processor;
+        this.display = display;
+        this.battery = battery;
+        this.memory = memory;
+    }
 
     public int getId() {
         return id;

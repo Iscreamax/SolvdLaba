@@ -3,7 +3,7 @@ package mobilestore.jaxb;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import mobilestore.modules.*;
+import mobilestore.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,8 +53,8 @@ public class JaxbWriter {
         mobilePhone.setYear(2022);
         mobilePhone.setImei(1234431344);
         mobilePhone.setPrice(1300);
-        mobilePhone.setSpecifications(specification);
-        mobilePhone.setMobileStores(mobileStore);
+        mobilePhone.setSpecification(specification);
+        mobilePhone.setMobileStore(mobileStore);
 
         try {
             JAXBContext context = JAXBContext.newInstance(MobilePhone.class);
@@ -71,4 +71,19 @@ public class JaxbWriter {
         return (MobilePhone) jaxbContext.createUnmarshaller()
                 .unmarshal(new FileReader(System.getProperty("user.dir") + "/src/main/resources/mobilePhone_jaxb.xml"));
     }
+
+    public static void main(String[] args) {
+        JaxbWriter.marshal();
+        MobilePhone mobilePhone = new MobilePhone();
+
+        try {
+            mobilePhone = JaxbWriter.unmarshal();
+            LOGGER.info(mobilePhone);
+        } catch (JAXBException e) {
+            LOGGER.info(e);
+        } catch (FileNotFoundException e) {
+            LOGGER.info(e);
+        }
+    }
 }
+

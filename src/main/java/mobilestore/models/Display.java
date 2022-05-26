@@ -1,16 +1,31 @@
-package mobilestore.modules;
+package mobilestore.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "battery")
 @XmlType(propOrder = {"manufacture", "type", "inch", "price"})
+@JsonPropertyOrder({"manufacture", "type", "inch", "price"})
 public class Display {
+    @JsonProperty
     private String manufacture;
+    @JsonProperty
     private String type;
+    @JsonProperty
     private double inch;
+    @JsonProperty
     private int price;
+
+    public Display(){}
+    public Display(String manufacture, String type, double inch, int price) {
+        this.manufacture = manufacture;
+        this.type = type;
+        this.inch = inch;
+        this.price = price;
+    }
 
     public int getPrice() {
         return price;
@@ -35,7 +50,7 @@ public class Display {
     }
 
     @XmlElement
-    public void setType(String types) {
+    public void setType(String type) {
         this.type = type;
     }
 

@@ -1,15 +1,29 @@
-package mobilestore.modules;
+package mobilestore.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "processor")
 @XmlType(propOrder = {"name", "frequency", "noc"})
+@JsonPropertyOrder({"name", "frequency", "noc"})
 public class Processor {
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String frequency;
+    @JsonProperty
     private int noc;
+    public Processor() {
+
+    }
+    public Processor(String name, String frequency, int noc) {
+        this.name = name;
+        this.frequency = frequency;
+        this.noc = noc;
+    }
 
     public String getName() {
         return name;

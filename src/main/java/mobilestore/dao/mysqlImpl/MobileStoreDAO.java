@@ -1,37 +1,33 @@
-package mobilestore.dao.jdbcMySQLImpl;
+package mobilestore.dao.mysqlImpl;
 
-
-import mobilestore.classes.Battery;
+import mobilestore.classes.MobileStore;
 import mobilestore.connectionPool.AbstractClassJDBC;
-import mobilestore.connectionPool.ConnectionPool;
-import mobilestore.dao.interfaces.IBatteryDAO;
+import mobilestore.dao.interfaces.IMobileStoreDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
-    private static final Logger LOGGER = LogManager.getLogger(BatteryDAO.class);
-    private Battery b = new Battery();
+public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MobileStoreDAO.class);
+    private MobileStore mb = new MobileStore();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
-
     @Override
-    public void getAllBatteries() {
+    public void getAllMobileStores() {
 
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from batteries ");
+            pr = connection.prepareStatement("select * from mobile_stores ");
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                b.setId(resultSet.getInt("id"));
-                b.setName(resultSet.getString("manufacturer"));
-                b.setCapacity(resultSet.getInt("capacity"));
-                b.setPrice(resultSet.getInt("price"));
-                LOGGER.info(b);
+                mb.setId(resultSet.getInt("id"));
+                mb.setName(resultSet.getString("name"));
+                mb.setAddress(resultSet.getString("address"));
+                LOGGER.info(mb);
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -47,18 +43,17 @@ public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
     }
 
     @Override
-    public Battery getEntityById(int id) {
+    public MobileStore getEntityById(int id) {
         try {
-            connection = ConnectionPool.newInstance().takeConnection();
-            pr = connection.prepareStatement("select * from batteries where id=?");
+            connection = getConnectionPool().takeConnection();
+            pr = connection.prepareStatement("select * from mobile_stores where id=?");
             pr.setInt(1, id);
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                b.setId(resultSet.getInt("id"));
-                b.setName(resultSet.getString("manufacturer"));
-                b.setCapacity(resultSet.getInt("capacity"));
-                b.setPrice(resultSet.getInt("price"));
+                mb.setId(resultSet.getInt("id"));
+                mb.setName(resultSet.getString("name"));
+                mb.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -71,20 +66,19 @@ public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
                 LOGGER.info(e);
             }
         }
-        return b;
+        return mb;
 
     }
 
     @Override
-    public void createEntity(Battery entity) {
+    public void createEntity(MobileStore entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("insert into batteries (manufacturer,capacity,price) values (?,?,?)");
+            pr = connection.prepareStatement("insert into mobile_stores (name,address) values (?,?)");
             pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
-            pr.setInt(3, entity.getPrice());
+            pr.setString(2, entity.getAddress());
             pr.executeUpdate();
-            LOGGER.info("A new battery has been created: " + entity);
+            LOGGER.info("A new mobile store has been created: " + entity);
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -98,16 +92,14 @@ public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
     }
 
     @Override
-    public void updateEntity(Battery entity) {
+    public void updateEntity(MobileStore entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("update batteries set manufacturer=?,capacity=?,price=? where id=?");
+            pr = connection.prepareStatement("update mobile_stores set name=?,address=?where id=?");
             pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
-            pr.setInt(3, entity.getPrice());
-            pr.setInt(4, entity.getId());
+            pr.setString(2, entity.getAddress());
             pr.executeUpdate();
-            LOGGER.info("Battery data has been updated.");
+            LOGGER.info("Mobile store data has been updated.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -124,10 +116,10 @@ public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
     public void removeEntity(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("delete from batteries where id=?");
+            pr = connection.prepareStatement("delete from mobile_store where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
-            LOGGER.info("The battery has been removed.");
+            LOGGER.info("The mobile store has been removed.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {

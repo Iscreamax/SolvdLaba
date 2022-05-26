@@ -1,33 +1,35 @@
-package mobilestore.dao.jdbcMySQLImpl;
+package mobilestore.dao.mysqlImpl;
 
-import mobilestore.classes.Memory;
+import mobilestore.classes.Client;
 import mobilestore.connectionPool.AbstractClassJDBC;
-import mobilestore.dao.interfaces.IMemoryDAO;
+import mobilestore.dao.interfaces.IClientDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
-    private static final Logger LOGGER = LogManager.getLogger(MemoryDAO.class);
-    private Memory m = new Memory();
+public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(ClientDAO.class);
+    private Client c = new Client();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
     @Override
-    public void getAllBatteries() {
+    public void getAllClients() {
 
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from memories ");
+            pr = connection.prepareStatement("select * from clients ");
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                m.setId(resultSet.getInt("id"));
-                m.setName(resultSet.getString("manufacturer"));
-                m.setCapacity(resultSet.getInt("capacity"));
-                LOGGER.info(m);
+                c.setId(resultSet.getInt("id"));
+                c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
+                c.setUserId(resultSet.getInt("userId"));
+                c.setValidTHRU(resultSet.getString("validTHRU"));
+                LOGGER.info(c);
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -43,17 +45,18 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     }
 
     @Override
-    public Memory getEntityById(int id) {
+    public Client getEntityById(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from memories where id=?");
+            pr = connection.prepareStatement("select * from clients where id=?");
             pr.setInt(1, id);
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                m.setId(resultSet.getInt("id"));
-                m.setName(resultSet.getString("manufacturer"));
-                m.setCapacity(resultSet.getInt("capacity"));
+                c.setId(resultSet.getInt("id"));
+                c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
+                c.setUserId(resultSet.getInt("userId"));
+                c.setValidTHRU(resultSet.getString("validTHRU"));
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -66,19 +69,20 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
                 LOGGER.info(e);
             }
         }
-        return m;
+        return c;
 
     }
 
     @Override
-    public void createEntity(Memory entity) {
+    public void createEntity(Client entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("insert into memories (manufacturer,capacity) values (?,?)");
-            pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
+            pr = connection.prepareStatement("insert into clients (creditCardNumber,userId,validTHRU) values (?,?,?)");
+            pr.setString(1, entity.getCreditCardNumber());
+            pr.setInt(2, entity.getUserId());
+            pr.setString(3, entity.getValidTHRU());
             pr.executeUpdate();
-            LOGGER.info("A new memory has been created: " + entity);
+            LOGGER.info("A new client has been created: " + entity);
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -92,15 +96,16 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     }
 
     @Override
-    public void updateEntity(Memory entity) {
+    public void updateEntity(Client entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("update memories set manufacturer=?,capacity=? where id=?");
-            pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
-            pr.setInt(3, entity.getId());
+            pr = connection.prepareStatement("update clients set creditCardNumber=?,userId=?,validTHRU=? where id=?");
+            pr.setString(1, entity.getCreditCardNumber());
+            pr.setInt(2, entity.getUserId());
+            pr.setString(3, entity.getValidTHRU());
+            pr.setInt(4, entity.getId());
             pr.executeUpdate();
-            LOGGER.info("Memory data has been updated.");
+            LOGGER.info("Client data has been updated.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -117,13 +122,14 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     public void removeEntity(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("delete from memories where id=?");
+            pr = connection.prepareStatement("delete from clients where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
-            LOGGER.info("The memory has been removed.");
+            LOGGER.info("The clients has been removed.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -132,3 +138,5 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
         }
     }
 }
+
+

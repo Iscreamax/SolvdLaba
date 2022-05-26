@@ -4,11 +4,11 @@
     <imei>1234431344</imei>
     <year>2022</year>
     <price>1300</price>
-    <mobileStores>
+    <mobileStore>
         <name>TELE2</name>
         <address>6 Vera Khoruzhey Street</address>
-    </mobileStores>
-    <specifications id="0">
+    </mobileStore>
+    <specification id="0">
         <processor>
             <name>Exynos</name>
             <frequency>1.8 - 3.2</frequency>
@@ -16,6 +16,7 @@
         </processor>
         <display>
             <manufacture>Samsung</manufacture>
+            <type>OLED</type>
             <inch>6.1</inch>
             <price>110</price>
         </display>
@@ -29,5 +30,5 @@
             <capacity>256</capacity>
             <price>55</price>
         </memory>
-    </specifications>
+    </specification>
 </mobile_phone>

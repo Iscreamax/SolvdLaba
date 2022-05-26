@@ -1,35 +1,37 @@
-package mobilestore.dao.jdbcMySQLImpl;
+package mobilestore.dao.mysqlImpl;
 
-import mobilestore.classes.Client;
+
+import mobilestore.classes.Battery;
 import mobilestore.connectionPool.AbstractClassJDBC;
-import mobilestore.dao.interfaces.IClientDAO;
+import mobilestore.connectionPool.ConnectionPool;
+import mobilestore.dao.interfaces.IBatteryDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
-
-    private static final Logger LOGGER = LogManager.getLogger(ClientDAO.class);
-    private Client c = new Client();
+public class BatteryDAO extends AbstractClassJDBC implements IBatteryDAO {
+    private static final Logger LOGGER = LogManager.getLogger(BatteryDAO.class);
+    private Battery b = new Battery();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
+
 
     @Override
     public void getAllBatteries() {
 
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from clients ");
+            pr = connection.prepareStatement("select * from batteries ");
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                c.setId(resultSet.getInt("id"));
-                c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
-                c.setUserId(resultSet.getInt("userId"));
-                c.setValidTHRU(resultSet.getString("validTHRU"));
-                LOGGER.info(c);
+                b.setId(resultSet.getInt("id"));
+                b.setName(resultSet.getString("manufacturer"));
+                b.setCapacity(resultSet.getInt("capacity"));
+                b.setPrice(resultSet.getInt("price"));
+                LOGGER.info(b);
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -45,18 +47,18 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     }
 
     @Override
-    public Client getEntityById(int id) {
+    public Battery getEntityById(int id) {
         try {
-            connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from clients where id=?");
+            connection = ConnectionPool.newInstance().takeConnection();
+            pr = connection.prepareStatement("select * from batteries where id=?");
             pr.setInt(1, id);
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                c.setId(resultSet.getInt("id"));
-                c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
-                c.setUserId(resultSet.getInt("userId"));
-                c.setValidTHRU(resultSet.getString("validTHRU"));
+                b.setId(resultSet.getInt("id"));
+                b.setName(resultSet.getString("manufacturer"));
+                b.setCapacity(resultSet.getInt("capacity"));
+                b.setPrice(resultSet.getInt("price"));
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -69,20 +71,20 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
                 LOGGER.info(e);
             }
         }
-        return c;
+        return b;
 
     }
 
     @Override
-    public void createEntity(Client entity) {
+    public void createEntity(Battery entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("insert into clients (creditCardNumber,userId,validTHRU) values (?,?,?)");
-            pr.setString(1, entity.getCreditCardNumber());
-            pr.setInt(2, entity.getUserId());
-            pr.setString(3, entity.getValidTHRU());
+            pr = connection.prepareStatement("insert into batteries (manufacturer,capacity,price) values (?,?,?)");
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getCapacity());
+            pr.setInt(3, entity.getPrice());
             pr.executeUpdate();
-            LOGGER.info("A new client has been created: " + entity);
+            LOGGER.info("A new battery has been created: " + entity);
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -96,16 +98,16 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     }
 
     @Override
-    public void updateEntity(Client entity) {
+    public void updateEntity(Battery entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("update clients set creditCardNumber=?,userId=?,validTHRU=? where id=?");
-            pr.setString(1, entity.getCreditCardNumber());
-            pr.setInt(2, entity.getUserId());
-            pr.setString(3, entity.getValidTHRU());
+            pr = connection.prepareStatement("update batteries set manufacturer=?,capacity=?,price=? where id=?");
+            pr.setString(1, entity.getName());
+            pr.setInt(2, entity.getCapacity());
+            pr.setInt(3, entity.getPrice());
             pr.setInt(4, entity.getId());
             pr.executeUpdate();
-            LOGGER.info("Client data has been updated.");
+            LOGGER.info("Battery data has been updated.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -122,10 +124,10 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     public void removeEntity(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("delete from clients where id=?");
+            pr = connection.prepareStatement("delete from batteries where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
-            LOGGER.info("The clients has been removed.");
+            LOGGER.info("The battery has been removed.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -138,5 +140,3 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         }
     }
 }
-
-

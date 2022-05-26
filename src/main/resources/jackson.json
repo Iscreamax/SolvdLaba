@@ -1,0 +1,69 @@
+[ {
+  "id" : 0,
+  "name" : "Iphone 13",
+  "imei" : 8746387659,
+  "year" : 2021,
+  "price" : 1050,
+  "mobileStore" : {
+    "name" : "Apple Store",
+    "address" : "Lenin Street 13"
+  },
+  "specification" : {
+    "id" : 0,
+    "processor" : {
+      "name" : "Bionic",
+      "frequency" : "3.2",
+      "noc" : 6
+    },
+    "display" : {
+      "manufacture" : "Samsung",
+      "type" : null,
+      "inch" : 6.0,
+      "price" : 110
+    },
+    "battery" : {
+      "name" : "Apple",
+      "capacity" : 4300,
+      "price" : 40
+    },
+    "memory" : {
+      "name" : "Apple",
+      "capacity" : 256,
+      "price" : 55
+    }
+  }
+}, {
+  "id" : 0,
+  "name" : "Samsung S21",
+  "imei" : 1246387659,
+  "year" : 2022,
+  "price" : 1150,
+  "mobileStore" : {
+    "name" : "Svyaznoy",
+    "address" : "Zaslavskaya Street 11"
+  },
+  "specification" : {
+    "id" : 0,
+    "processor" : {
+      "name" : "Exynos",
+      "frequency" : "3.3",
+      "noc" : 6
+    },
+    "display" : {
+      "manufacture" : "Samsung",
+      "type" : null,
+      "inch" : 6.3,
+      "price" : 150
+    },
+    "battery" : {
+      "name" : "Samsung",
+      "capacity" : 3700,
+      "price" : 50
+    },
+    "memory" : {
+      "name" : "Samsung",
+      "capacity" : 256,
+      "price" : 44
+    }
+  }
+} ]

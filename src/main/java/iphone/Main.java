@@ -8,9 +8,9 @@ import inerfaces.fuctional.*;
 import jakarta.xml.bind.JAXBException;
 import linkedList.LinkedList;
 import mobilestore.dao.interfaces.IBatteryDAO;
-import mobilestore.dao.jdbcMySQLImpl.BatteryDAO;
-import mobilestore.dom.RealDom;
+import mobilestore.dao.mysqlImpl.BatteryDAO;
 import mobilestore.jaxb.JaxbWriter;
+import mobilestore.sax.SaxParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
@@ -385,31 +385,19 @@ public class Main {
         }
     }
 
-    private void runDom() {
+
+    private void runSAX() {
+        SaxParser saxParser = new SaxParser();
         try {
-            RealDom.run();
+            saxParser.runSax();
         } catch (ParserConfigurationException e) {
-            LOGGER.info(e);
-        } catch (IOException e) {
             LOGGER.info(e);
         } catch (SAXException e) {
             LOGGER.info(e);
-        }
-    }
-    private void runJAXB(){
-        JaxbWriter.marshal();
-        mobilestore.modules.MobilePhone mobilePhone = new mobilestore.modules.MobilePhone();
-
-        try {
-            mobilePhone= JaxbWriter.unmarshal();
-            LOGGER.info(mobilePhone);
-        } catch (JAXBException e) {
-            LOGGER.info(e);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             LOGGER.info(e);
         }
     }
-
 
     public static void main(String[] args) {
 
@@ -424,7 +412,6 @@ public class Main {
 //        main.useReflection();
 //        main.runThreads();
 //        main.connectDB();
-//        main.runDom();
-        main.runJAXB();
+        main.runSAX();
     }
 }
