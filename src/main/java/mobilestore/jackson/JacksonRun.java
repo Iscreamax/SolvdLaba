@@ -54,11 +54,11 @@ public class JacksonRun {
             JacksonRun.deserialize();
 
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         } catch (SAXException e) {
-            e.printStackTrace();
+            LOGGER.info(e);
         }
     }
 }
