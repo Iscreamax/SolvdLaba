@@ -10,7 +10,8 @@ public class User {
     private String email;
     private int age;
 
-    public User(){}
+    public User() {
+    }
 
     public User(String name, String surname, String email) {
         this.name = name;
@@ -18,20 +19,21 @@ public class User {
         this.email = email;
     }
 
-    public User( String name,String surname, String email,int age) {
+    public User(String name, String surname, String email, int age) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.age = age;
     }
 
-    public User( int id, String name,String surname, String email,int age) {
+    public User(int id, String name, String surname, String email, int age) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.age = age;
     }
+
     public int getId() {
         return id;
     }

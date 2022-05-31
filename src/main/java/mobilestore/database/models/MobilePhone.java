@@ -28,7 +28,7 @@ public class MobilePhone {
     @JsonProperty
     private Specification specification;
 
-    public MobilePhone( String name, long imei,int year, int price, Specification specification, MobileStore mobileStore) {
+    public MobilePhone(String name, long imei, int year, int price, Specification specification, MobileStore mobileStore) {
         this.mobileStore = mobileStore;
         this.imei = imei;
         this.name = name;

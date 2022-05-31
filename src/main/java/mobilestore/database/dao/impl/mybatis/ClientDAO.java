@@ -3,7 +3,7 @@ package mobilestore.database.dao.impl.mybatis;
 
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.models.Client;
-import mobilestore.mybatis.MyBatisUtil;
+import mobilestore.database.dao.mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +19,7 @@ public class ClientDAO implements IClientDAO {
     public Client getEntityById(int id) throws SQLException {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IClientDAO iClientDAO = sqlSession.getMapper(IClientDAO.class);
+            LOGGER.info("Get client by id:" + iClientDAO.getEntityById(id));
             return iClientDAO.getEntityById(id);
         }
     }
@@ -27,7 +28,8 @@ public class ClientDAO implements IClientDAO {
     public void createEntity(Client entity) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IClientDAO iClientDAO = sqlSession.getMapper(IClientDAO.class);
-            sqlSession.insert("createClients", entity);
+            LOGGER.info("The client is created :" + entity);
+            sqlSession.insert("createClient", entity);
             sqlSession.commit();
         }
 
@@ -39,6 +41,7 @@ public class ClientDAO implements IClientDAO {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IClientDAO iClientDAO = sqlSession.getMapper(IClientDAO.class);
             sqlSession.update("updateClients", entity);
+            LOGGER.info("The client is updated : " + entity);
             sqlSession.commit();
         }
     }
@@ -47,6 +50,11 @@ public class ClientDAO implements IClientDAO {
     public void removeEntity(int id) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IClientDAO iClientDAO = sqlSession.getMapper(IClientDAO.class);
+            try {
+                LOGGER.info("The client is deleted :" + iClientDAO.getEntityById(id));
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
             sqlSession.delete("removeClients", id);
             sqlSession.commit();
         }

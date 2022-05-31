@@ -23,7 +23,9 @@ public class Specification {
     @JsonProperty
     private Memory memory;
 
-    public Specification(){}
+    public Specification() {
+    }
+
     public Specification(Processor processor, Display display, Battery battery, Memory memory) {
         this.processor = processor;
         this.display = display;

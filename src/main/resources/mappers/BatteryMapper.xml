@@ -7,15 +7,17 @@
         <result column="capacity" property="capacity"/>
         <result column="price" property="price"/>
     </resultMap>
-    <insert id="createBattery" parameterType="mobilestore.database.models.Battery" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createBattery" parameterType="mobilestore.database.models.Battery" useGeneratedKeys="true"
+            keyProperty="id">
         insert into batteries (manufacturer,capacity,price) values (#{manufacturer},#{capacity},#{price})
     </insert>
     <select id="getEntityById" resultMap="BatteryResultMap">select * from batteries where id = #{id}</select>
-    <delete id="removeBattery">delete from batteries  where id = #{id}</delete>
+    <delete id="removeBattery">delete from batteries where id = #{id}</delete>
     <update id="updateBattery"
             keyProperty="id"
             flushCache="true"
-            statementType="PREPARED">update batteries set manufacturer=#{manufacturer},capacity=#{capacity},price=#{price} where id=#{id}
+            statementType="PREPARED">update batteries set
+        manufacturer=#{manufacturer},capacity=#{capacity},price=#{price} where id=#{id}
     </update>
     <select id="showAllBatteries" resultMap="BatteryResultMap">select * from batteries</select>
 </mapper>

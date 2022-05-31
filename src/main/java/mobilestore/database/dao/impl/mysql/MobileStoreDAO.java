@@ -17,7 +17,7 @@ public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO
     private ResultSet resultSet = null;
 
     @Override
-    public void getAllMobileStores() {
+    public void showAllMobileStores() {
 
         try {
             connection = getConnectionPool().takeConnection();

@@ -2,7 +2,7 @@ package mobilestore.database.models;
 
 import java.util.List;
 
-public class ServiceCentersWarranty{
+public class ServiceCentersWarranty {
     private int id;
     private List<ServiceCenter> serviceCenters;
     private List<Warranty> warranties;

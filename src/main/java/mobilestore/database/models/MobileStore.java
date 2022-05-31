@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "mobile_store")
-@XmlType(propOrder = {"id","name", "address"})
+@XmlType(propOrder = {"id", "name", "address"})
 @JsonPropertyOrder({"name", "address"})
 public class MobileStore {
     @JsonProperty
@@ -17,8 +17,16 @@ public class MobileStore {
     @JsonProperty
     private String address;
 
-    public MobileStore(){}
+    public MobileStore() {
+    }
+
     public MobileStore(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
+    public MobileStore(int id, String name, String address) {
+        this.id = id;
         this.name = name;
         this.address = address;
     }

@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "memory")
-@XmlType(propOrder = {"id","name", "capacity", "price"})
+@XmlType(propOrder = {"id", "name", "capacity", "price"})
 @JsonPropertyOrder({"name", "capacity", "price"})
 public class Memory {
     @JsonProperty
@@ -19,7 +19,8 @@ public class Memory {
     @JsonProperty
     private int price;
 
-    public Memory(){}
+    public Memory() {
+    }
 
     public Memory(String name, int capacity) {
         this.name = name;

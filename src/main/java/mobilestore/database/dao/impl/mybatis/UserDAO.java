@@ -2,7 +2,7 @@ package mobilestore.database.dao.impl.mybatis;
 
 import mobilestore.database.dao.interfaces.IUserDAO;
 import mobilestore.database.models.User;
-import mobilestore.mybatis.MyBatisUtil;
+import mobilestore.database.dao.mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +19,7 @@ public class UserDAO implements IUserDAO {
     public User getEntityById(int id) throws SQLException {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IUserDAO userDAO = sqlSession.getMapper(IUserDAO.class);
+            LOGGER.info("Get user by id :" + userDAO.getEntityById(id));
             return userDAO.getEntityById(id);
         }
     }
@@ -28,6 +29,7 @@ public class UserDAO implements IUserDAO {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IUserDAO userDAO = sqlSession.getMapper(IUserDAO.class);
             sqlSession.insert("createEntity", entity);
+            LOGGER.info("The user is created : " + entity);
             sqlSession.commit();
         }
 
@@ -39,6 +41,7 @@ public class UserDAO implements IUserDAO {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IUserDAO userDAO = sqlSession.getMapper(IUserDAO.class);
             sqlSession.update("updateEntity", entity);
+            LOGGER.info("The user is updated : " + entity);
             sqlSession.commit();
         }
     }
@@ -47,6 +50,11 @@ public class UserDAO implements IUserDAO {
     public void removeEntity(int id) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
             IUserDAO userDAO = sqlSession.getMapper(IUserDAO.class);
+            try {
+                LOGGER.info("The user is deleted :" + userDAO.getEntityById(id));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             sqlSession.delete("removeEntity", id);
             sqlSession.commit();
         }

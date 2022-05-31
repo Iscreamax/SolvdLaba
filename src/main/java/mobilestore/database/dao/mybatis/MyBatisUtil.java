@@ -1,4 +1,4 @@
-package mobilestore.mybatis;
+package mobilestore.database.dao.mybatis;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;

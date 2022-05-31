@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Confi 3.3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource = "db.properties"/>
@@ -16,7 +17,7 @@
         <mapper resource="mappers/BatteryMapper.xml"/>
         <mapper resource="mappers/ClientMapper.xml"/>
         <mapper resource="mappers/MemoryMapper.xml"/>
-<!--        <mapper resource="mappers/MobileStoreMapper.xml"/>-->
+        <mapper resource="mappers/MobileStoreMapper.xml"/>
         <mapper resource="mappers/UserMapper.xml"/>
     </mappers>
 </configuration>

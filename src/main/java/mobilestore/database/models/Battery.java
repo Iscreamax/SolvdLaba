@@ -7,8 +7,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "battery")
-@XmlType(propOrder = {"id","manufacturer", "capacity","price"})
-@JsonPropertyOrder({"manufacturer", "capacity","price"})
+@XmlType(propOrder = {"id", "manufacturer", "capacity", "price"})
+@JsonPropertyOrder({"manufacturer", "capacity", "price"})
 public class Battery {
     @JsonProperty
     private int id;
@@ -19,7 +19,9 @@ public class Battery {
     @JsonProperty
     private int price;
 
-    public Battery(){}
+    public Battery() {
+    }
+
     public Battery(String manufacturer, int capacity, int price) {
         this.manufacturer = manufacturer;
         this.capacity = capacity;
@@ -44,6 +46,7 @@ public class Battery {
     public int getPrice() {
         return price;
     }
+
     @XmlElement
     public void setPrice(int price) {
         this.price = price;
@@ -52,6 +55,7 @@ public class Battery {
     public String getManufacturer() {
         return manufacturer;
     }
+
     @XmlElement
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
@@ -69,7 +73,7 @@ public class Battery {
 
     @Override
     public String toString() {
-        return "{"+"id="+id +
+        return "{" + "id=" + id +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", capacity=" + capacity +
                 ", price=" + price +

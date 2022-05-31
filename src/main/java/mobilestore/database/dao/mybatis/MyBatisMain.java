@@ -1,15 +1,18 @@
-package mobilestore.mybatis;
+package mobilestore.database.dao.mybatis;
 
 import mobilestore.database.dao.impl.mybatis.BatteryDAO;
 import mobilestore.database.dao.impl.mybatis.MemoryDAO;
 import mobilestore.database.dao.impl.mybatis.ClientDAO;
+import mobilestore.database.dao.impl.mybatis.MobileStoreDAO;
 import mobilestore.database.dao.interfaces.IBatteryDAO;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.dao.interfaces.IMemoryDAO;
+import mobilestore.database.dao.interfaces.IMobileStoreDAO;
 import mobilestore.database.models.Battery;
 import mobilestore.database.models.Client;
 import mobilestore.database.models.Memory;
 
+import mobilestore.database.models.MobileStore;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,30 +60,31 @@ public class MyBatisMain {
         } catch (SQLException e) {
             LOGGER.info(e);
         }
-        //update memory
-        try {
-            iMemoryDAO.updateEntity(memoryUpdate);
-        } catch (SQLException e) {
-            LOGGER.info(e);
-        }
-        //delete memory
-        iMemoryDAO.removeEntity(1);
-        //show all batteries
-        iMemoryDAO.showAllMemories();
+//        //update memory
+//        try {
+//            iMemoryDAO.updateEntity(memoryUpdate);
+//        } catch (SQLException e) {
+//            LOGGER.info(e);
+//        }
+//        //delete memory
+//        iMemoryDAO.removeEntity(1);
+//        //show all batteries
+//        iMemoryDAO.showAllMemories();
     }
-    public static void runClientDao(){
+
+    public static void runClientDao() {
         IClientDAO iClientDAO = new ClientDAO();
-        Client client = new Client("1233254361",21,"20/24");
-        Client clientUpdate = new Client("8763254361",20,"18/28");
+        Client client = new Client("12332543681", 21, "20/24");
+        Client clientUpdate = new Client(3, "8763254361", 22, "18/28");
         //create client
         iClientDAO.createEntity(client);
-        //get client by id
+//        get client by id
         try {
-            LOGGER.info(iClientDAO.getEntityById(1));
+            LOGGER.info(iClientDAO.getEntityById(2));
         } catch (SQLException e) {
             LOGGER.info(e);
         }
-        //update client
+//        update client
         try {
             iClientDAO.updateEntity(clientUpdate);
         } catch (SQLException e) {
@@ -89,13 +93,38 @@ public class MyBatisMain {
         //delete client
         iClientDAO.removeEntity(1);
         //show all clients
-        iClientDAO.showAllClients();
+//        iClientDAO.showAllClients();
+    }
+
+    public static void MobileStoreDao() {
+        IMobileStoreDAO iMobileStoreDAO = new MobileStoreDAO();
+        MobileStore mobileStore = new MobileStore("Mobile Centre", "92 Masherov Avenue");
+        MobileStore mobileStoreUpdate = new MobileStore(4, "Mobile World", "Nemiga Street 21");
+        //create mobileStore
+//        iMobileStoreDAO.createEntity(mobileStore);
+////        get mobileStore by id
+//        try {
+//            LOGGER.info(iMobileStoreDAO.getEntityById(1));
+//        } catch (SQLException e) {
+//            LOGGER.info(e);
+//        }
+////        update mobileStore
+//        try {
+//            iMobileStoreDAO.updateEntity(mobileStoreUpdate);
+//        } catch (SQLException e) {
+//            LOGGER.info(e);
+//        }
+        //delete client
+        iMobileStoreDAO.removeEntity(4);
+        //show all clients
+//        iMobileStoreDAO.showAllMobileStores();
     }
 
     public static void main(String[] args) {
 
 //        MyBatisMain.runBatteryDao();
 //        MyBatisMain.runMemoryDao();
-        MyBatisMain.runClientDao();
+//        MyBatisMain.runClientDao();
+        MyBatisMain.MobileStoreDao();
     }
 }

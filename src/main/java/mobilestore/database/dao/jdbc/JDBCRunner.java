@@ -1,4 +1,4 @@
-package mobilestore.jdbc;
+package mobilestore.database.dao.jdbc;
 
 import mobilestore.database.dao.impl.mysql.BatteryDAO;
 import mobilestore.database.dao.interfaces.IBatteryDAO;

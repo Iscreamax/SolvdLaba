@@ -1,7 +1,6 @@
 package mobilestore.database.models;
 
 
-
 import java.util.List;
 
 public class Warranty {
@@ -41,7 +40,6 @@ public class Warranty {
     public void setMobilePhoneId(int mobilePhoneId) {
         this.mobilePhoneId = mobilePhoneId;
     }
-
 
 
 }

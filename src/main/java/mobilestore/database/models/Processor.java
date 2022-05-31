@@ -18,9 +18,11 @@ public class Processor {
     private String frequency;
     @JsonProperty
     private int noc;
+
     public Processor() {
 
     }
+
     public Processor(String name, String frequency, int noc) {
         this.name = name;
         this.frequency = frequency;
