@@ -5,6 +5,7 @@
     <year>2022</year>
     <price>1300</price>
     <mobileStore>
+        <id>0</id>
         <name>TELE2</name>
         <address>6 Vera Khoruzhey Street</address>
     </mobileStore>
@@ -15,17 +16,20 @@
             <noc>6</noc>
         </processor>
         <display>
+            <id>0</id>
             <manufacture>Samsung</manufacture>
             <type>OLED</type>
             <inch>6.1</inch>
             <price>110</price>
         </display>
         <battery>
+            <id>0</id>
             <name>Samsung</name>
             <capacity>3450</capacity>
             <price>27</price>
         </battery>
         <memory>
+            <id>0</id>
             <name>SamDc</name>
             <capacity>256</capacity>
             <price>55</price>

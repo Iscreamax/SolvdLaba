@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import mobilestore.dom.RealDom;
-import mobilestore.models.MobilePhone;
+import mobilestore.database.models.MobilePhone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class JacksonRun {
     private static final Logger LOGGER = LogManager.getLogger(JacksonRun.class);
-    private static File f = new File(System.getProperty("user.dir") + "/src/main/resources/jackson.json");
+    private static File f = new File(System.getProperty("user.dir") + "/solvd/laba/iphone/src/main/resources/jackson.json");
     public static List<MobilePhone> mobilePhones=new ArrayList<>();
 
     public static void serialize(MobilePhone mobilePhone) {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mobilestore.database.dao.interfaces.IBatteryDAO">
+    <resultMap type="mobilestore.database.models.Battery" autoMapping="false" id="BatteryResultMap">
+        <id column="id" property="id"/>
+        <result column="manufacturer" property="manufacturer"/>
+        <result column="capacity" property="capacity"/>
+        <result column="price" property="price"/>
+    </resultMap>
+    <insert id="createBattery" parameterType="mobilestore.database.models.Battery" useGeneratedKeys="true" keyProperty="id">
+        insert into batteries (manufacturer,capacity,price) values (#{manufacturer},#{capacity},#{price})
+    </insert>
+    <select id="getEntityById" resultMap="BatteryResultMap">select * from batteries where id = #{id}</select>
+    <delete id="removeBattery">delete from batteries  where id = #{id}</delete>
+    <update id="updateBattery"
+            keyProperty="id"
+            flushCache="true"
+            statementType="PREPARED">update batteries set manufacturer=#{manufacturer},capacity=#{capacity},price=#{price} where id=#{id}
+    </update>
+    <select id="showAllBatteries" resultMap="BatteryResultMap">select * from batteries</select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mobilestore.database.dao.interfaces.IMemoryDAO">
+    <resultMap type="mobilestore.database.models.Memory" autoMapping="false" id="MemoryResultMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="capacity" property="capacity"/>
+    </resultMap>
+    <insert id="createMemory" parameterType="mobilestore.database.models.Memory" useGeneratedKeys="true" keyProperty="id">
+        insert into memories (name,capacity) values (#{name},#{capacity})
+    </insert>
+    <select id="getEntityById" resultMap="MemoryResultMap">select * from memories where id = #{id}</select>
+    <delete id="removeMemory">delete from memories  where id = #{id}</delete>
+    <update id="updateMemory"
+            keyProperty="id"
+            flushCache="true"
+            statementType="PREPARED">update memories set name=#{name},capacity=#{capacity} where id=#{id}
+    </update>
+    <select id="showAllMemories" resultMap="MemoryResultMap">select * from memories</select>
+</mapper>

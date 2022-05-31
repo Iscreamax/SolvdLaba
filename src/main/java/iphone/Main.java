@@ -5,25 +5,17 @@ import exception.DiscountException;
 import exception.PriceException;
 import exception.WarehouseException;
 import inerfaces.fuctional.*;
-import jakarta.xml.bind.JAXBException;
 import linkedList.LinkedList;
-import mobilestore.dao.interfaces.IBatteryDAO;
-import mobilestore.dao.mysqlImpl.BatteryDAO;
-import mobilestore.jaxb.JaxbWriter;
-import mobilestore.sax.SaxParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.io.FileUtils;
 import org.xml.sax.SAXException;
 
-
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.*;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -54,7 +46,7 @@ public class Main {
     MobilePhone samsungE = new Samsung(34, "E", memory, batterySamsungAE, displaySamsung, cpuSamsung, 270);
     Landline philips = new Landline("Philips", 2230, "One", 60);
     Landline lg = new Landline("LG", 007, "Home", 110);
-    mobilestore.classes.Battery batteryBD = new mobilestore.classes.Battery(3, "Apple", 1200, 35);
+
 
     private void runPreviousLesson() {
         LOGGER.info("Previous Lesson" + "\n");
@@ -369,36 +361,6 @@ public class Main {
 
     }
 
-    private void connectDB() {
-        IBatteryDAO b = new BatteryDAO();
-        try {
-            LOGGER.info(b.getEntityById(3));
-            LOGGER.info(b.getEntityById(5));
-            b.getAllBatteries();
-            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 3550, 33));
-            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 4150, 41));
-            b.createEntity(new mobilestore.classes.Battery("Xiaomi", 4200, 47));
-            b.removeEntity(13);
-            b.updateEntity(batteryBD);
-        } catch (SQLException e) {
-            LOGGER.info(e);
-        }
-    }
-
-
-    private void runSAX() {
-        SaxParser saxParser = new SaxParser();
-        try {
-            saxParser.runSax();
-        } catch (ParserConfigurationException e) {
-            LOGGER.info(e);
-        } catch (SAXException e) {
-            LOGGER.info(e);
-        } catch (IOException e) {
-            LOGGER.info(e);
-        }
-    }
-
     public static void main(String[] args) {
 
         Main main = new Main();
@@ -410,8 +372,6 @@ public class Main {
 //        main.useUtilsLesson();
 //        main.useLambdaAndEnumLesson();
 //        main.useReflection();
-//        main.runThreads();
-//        main.connectDB();
-        main.runSAX();
+        main.runThreads();
     }
 }

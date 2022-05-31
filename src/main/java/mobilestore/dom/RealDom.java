@@ -1,7 +1,7 @@
 package mobilestore.dom;
 
-import mobilestore.models.*;
-import mobilestore.models.MobilePhone;
+import mobilestore.database.models.*;
+import mobilestore.database.models.MobilePhone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -34,7 +34,7 @@ public class RealDom implements IDOMEnum {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         Document document = null;
         DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
-        document = builder.parse(new File("src/main/resources/mobilePhone_jdom.xml"));
+        document = builder.parse(new File("solvd/laba/iphone/src/main/resources/mobilePhone_jdom.xml"));
 
         NodeList nodeList = document.getElementsByTagName(PHONE);
         int index = nodeList.getLength();
@@ -63,7 +63,7 @@ public class RealDom implements IDOMEnum {
 
             Node batteryNode = element.getElementsByTagName(IDOMEnum.ISpecification.BATTERY).item(0);
             Element batteryElement = (Element) batteryNode;
-            battery.setName(batteryElement.getElementsByTagName(IDOMEnum.ISpecification.BATTERY_MANUFACTURER).item(0).getTextContent());
+            battery.setManufacturer(batteryElement.getElementsByTagName(IDOMEnum.ISpecification.BATTERY_MANUFACTURER).item(0).getTextContent());
             battery.setCapacity(Integer.parseInt(batteryElement.getElementsByTagName(IDOMEnum.ISpecification.BATTERY_CAPACITY).item(0).getTextContent()));
             battery.setPrice(Integer.parseInt(batteryElement.getElementsByTagName(IDOMEnum.ISpecification.BATTERY_PRICE).item(0).getTextContent()));
             specification.setBattery(battery);

@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mobilestore.database.dao.interfaces.IClientDAO">
+    <resultMap type="mobilestore.database.models.Client" autoMapping="false" id="ClientsResultMap">
+        <id column="id" property="id"/>
+        <result column="creditCardNumber" property="creditCardNumber"/>
+        <result column="userId" property="userId"/>
+        <result column="validTHRU" property="validTHRU"/>
+    </resultMap>
+    <insert id="createClient" parameterType="mobilestore.database.models.Client" useGeneratedKeys="true" keyProperty="id" >
+        INSERT into clients (creditCardNumber, user_id, validTHRU) VALUES
+        (#{creditCardNumber},#{userId},#{validTHRU})
+    </insert>
+    <select id="getEntityById" resultMap="ClientsResultMap">SELECT * FROM clients WHERE id = #{id}</select>
+    <delete id="removeClients">delete from clients where id = #{id}</delete>
+    <update id="updateClients"
+            keyProperty="id"
+            flushCache="true"
+            statementType="PREPARED">update clients set creditCardNumber=#{creditCardNumber},user_id=#{userId},validTHRU=#{validTHRU} where
+        id=#{id}
+    </update>
+    <select id="showAllClients" resultMap="ClientsResultMap">select * from clients</select>
+</mapper>

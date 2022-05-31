@@ -3,7 +3,8 @@ package mobilestore.jaxb;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import mobilestore.models.*;
+
+import mobilestore.database.models.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,7 @@ public class JaxbWriter {
 
     public static void marshal() {
         Battery battery = new Battery();
-        battery.setName("Samsung");
+        battery.setManufacturer("Samsung");
         battery.setCapacity(3450);
         battery.setPrice(27);
 
@@ -60,7 +61,7 @@ public class JaxbWriter {
             JAXBContext context = JAXBContext.newInstance(MobilePhone.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(mobilePhone, new File(System.getProperty("user.dir") + "/src/main/resources/mobilePhone_jaxb.xml"));
+            marshaller.marshal(mobilePhone, new File(System.getProperty("user.dir") + "/solvd/laba/iphone/src/main/resources/mobilePhone_jaxb.xml"));
         } catch (JAXBException e) {
             LOGGER.info(e);
         }
@@ -69,7 +70,7 @@ public class JaxbWriter {
     public static MobilePhone unmarshal() throws JAXBException, FileNotFoundException {
         JAXBContext jaxbContext = JAXBContext.newInstance(MobilePhone.class);
         return (MobilePhone) jaxbContext.createUnmarshaller()
-                .unmarshal(new FileReader(System.getProperty("user.dir") + "/src/main/resources/mobilePhone_jaxb.xml"));
+                .unmarshal(new FileReader(System.getProperty("user.dir") + "/solvd/laba/iphone/src/main/resources/mobilePhone_jaxb.xml"));
     }
 
     public static void main(String[] args) {
