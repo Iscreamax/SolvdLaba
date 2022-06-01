@@ -1,11 +1,14 @@
 package mobilestore.database.dao.impl.mysql;
-import mobilestore.database.connectionPool.AbstractClassJDBC;
+import mobilestore.database.connectionpool.AbstractClassJDBC;
 import mobilestore.database.dao.interfaces.IUserDAO;
+import mobilestore.database.models.Client;
 import mobilestore.database.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAO.class);
@@ -139,5 +142,36 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
                 LOGGER.info(e);
             }
         }
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            connection = getConnectionPool().takeConnection();
+            pr = connection.prepareStatement("select * from users ");
+            pr.execute();
+            resultSet = pr.getResultSet();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setName(resultSet.getString("name"));
+                user.setSurname(resultSet.getString("surname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setAge(resultSet.getInt("age"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            getConnectionPool().returnConnection(connection);
+            try {
+                if (pr != null) pr.close();
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+        }
+        return users;
     }
 }

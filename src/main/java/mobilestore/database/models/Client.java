@@ -53,5 +53,15 @@ public class Client {
     public void setValidTHRU(String validTHRU) {
         this.validTHRU = validTHRU;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", creditCardNumber='" + creditCardNumber + '\'' +
+                ", userId=" + userId +
+                ", validTHRU='" + validTHRU + '\'' +
+                '}';
+    }
 }
 

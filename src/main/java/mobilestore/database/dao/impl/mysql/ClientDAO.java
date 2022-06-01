@@ -1,13 +1,14 @@
 package mobilestore.database.dao.impl.mysql;
 
 
-import mobilestore.database.connectionPool.AbstractClassJDBC;
+import mobilestore.database.connectionpool.AbstractClassJDBC;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.models.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.*;
 
 public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
 
@@ -28,7 +29,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
             while (resultSet.next()) {
                 c.setId(resultSet.getInt("id"));
                 c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
-                c.setUserId(resultSet.getInt("userId"));
+                c.setUserId(resultSet.getInt("user_id"));
                 c.setValidTHRU(resultSet.getString("validTHRU"));
                 LOGGER.info(c);
             }
@@ -56,7 +57,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
             while (resultSet.next()) {
                 c.setId(resultSet.getInt("id"));
                 c.setCreditCardNumber(resultSet.getString("creditCardNumber"));
-                c.setUserId(resultSet.getInt("userId"));
+                c.setUserId(resultSet.getInt("user_id"));
                 c.setValidTHRU(resultSet.getString("validTHRU"));
             }
         } catch (SQLException e) {
@@ -138,6 +139,37 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
             }
         }
     }
+
+    @Override
+    public List<Client> getClients() {
+        List<Client> clients = new ArrayList<>();
+        try {
+            connection = getConnectionPool().takeConnection();
+            pr = connection.prepareStatement("select * from clients ");
+            pr.execute();
+            resultSet = pr.getResultSet();
+            while (resultSet.next()) {
+                Client client= new Client();
+                client.setId(resultSet.getInt("id"));
+                client.setCreditCardNumber(resultSet.getString("creditCardNumber"));
+                client.setUserId(resultSet.getInt("user_id"));
+                client.setValidTHRU(resultSet.getString("validTHRU"));
+                clients.add(client);
+            }
+        } catch (SQLException e) {
+            LOGGER.info(e);
+        } finally {
+            getConnectionPool().returnConnection(connection);
+            try {
+                if (pr != null) pr.close();
+                if (resultSet != null) resultSet.close();
+            } catch (SQLException e) {
+                LOGGER.info(e);
+            }
+        }
+        return clients;
+    }
+
 }
 
 

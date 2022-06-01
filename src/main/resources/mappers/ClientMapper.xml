@@ -4,7 +4,7 @@
     <resultMap type="mobilestore.database.models.Client" autoMapping="false" id="ClientsResultMap">
         <id column="id" property="id"/>
         <result column="creditCardNumber" property="creditCardNumber"/>
-        <result column="userId" property="userId"/>
+        <result column="user_id" property="userId"/>
         <result column="validTHRU" property="validTHRU"/>
     </resultMap>
     <insert id="createClient" parameterType="mobilestore.database.models.Client" useGeneratedKeys="true"

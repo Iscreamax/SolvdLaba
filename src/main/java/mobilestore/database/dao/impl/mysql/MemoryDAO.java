@@ -1,10 +1,9 @@
 package mobilestore.database.dao.impl.mysql;
 
 
-import mobilestore.database.connectionPool.AbstractClassJDBC;
+import mobilestore.database.connectionpool.AbstractClassJDBC;
 import mobilestore.database.dao.interfaces.IMemoryDAO;
 import mobilestore.database.models.Memory;
-import mobilestore.database.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

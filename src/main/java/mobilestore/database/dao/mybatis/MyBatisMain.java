@@ -125,6 +125,8 @@ public class MyBatisMain {
 //        MyBatisMain.runBatteryDao();
 //        MyBatisMain.runMemoryDao();
 //        MyBatisMain.runClientDao();
-        MyBatisMain.MobileStoreDao();
+//        MyBatisMain.MobileStoreDao();
+        IClientDAO clientDAO = new ClientDAO();
+        clientDAO.showAllClients();
     }
 }

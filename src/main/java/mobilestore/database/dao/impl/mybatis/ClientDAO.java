@@ -69,4 +69,14 @@ public class ClientDAO implements IClientDAO {
 
         }
     }
+
+    @Override
+    public List<Client> getClients() {
+        List<Client> clients;
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            IClientDAO iClientDAO = sqlSession.getMapper(IClientDAO.class);
+            clients = sqlSession.selectList("showAllClients");
+        }
+        return clients;
+    }
 }

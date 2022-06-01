@@ -69,4 +69,16 @@ public class UserDAO implements IUserDAO {
 
         }
     }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> users;
+
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            IUserDAO userDAO = sqlSession.getMapper(IUserDAO.class);
+            users= sqlSession.selectList("showAllUsers");
+
+        }
+        return users;
+    }
 }
