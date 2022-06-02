@@ -1,9 +1,9 @@
-package mobilestore.jackson;
+package mobilestore.parsers.jackson;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import mobilestore.dom.RealDom;
+import mobilestore.parsers.dom.RealDom;
 import mobilestore.database.models.MobilePhone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

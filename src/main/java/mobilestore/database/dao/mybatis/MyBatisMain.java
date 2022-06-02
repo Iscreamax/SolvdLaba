@@ -13,6 +13,7 @@ import mobilestore.database.models.Client;
 import mobilestore.database.models.Memory;
 
 import mobilestore.database.models.MobileStore;
+import mobilestore.pattern.factory.DAOFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,12 +22,13 @@ import java.sql.SQLException;
 
 public class MyBatisMain {
     private static final Logger LOGGER = LogManager.getLogger(MyBatisMain.class);
+    public static DAOFactory daoFactory = new DAOFactory();
 
     public static void runBatteryDao() {
 
         IBatteryDAO iBatteryDAO = new BatteryDAO();
-        Battery battery = new Battery("Samsung", 3400, 23);
-        Battery batteryUpdate = new Battery(4, "Apple", 4500, 55);
+        Battery battery = new Battery.Builder().setManufacturer("Samsung").setCapacity(3400).setPrice(23).build();
+        Battery batteryUpdate =new Battery.Builder().setId(4).setManufacturer("Apple").setCapacity(4500).setPrice(55).build();
         //get battery by id
         try {
             LOGGER.info(iBatteryDAO.getEntityById(3));

@@ -1,4 +1,4 @@
-package mobilestore.dom;
+package mobilestore.parsers.dom;
 
 import mobilestore.database.models.*;
 import mobilestore.database.models.MobilePhone;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RealDom implements IDOMEnum {
-    private static final Logger LOGGER = LogManager.getLogger(mobilestore.dom.RealDom.class);
+    private static final Logger LOGGER = LogManager.getLogger(mobilestore.parsers.dom.RealDom.class);
     private List<MobilePhone> mobilePhones = new ArrayList<>();
 
     public List<MobilePhone> getMobilePhones() {
@@ -44,7 +44,7 @@ public class RealDom implements IDOMEnum {
             MobilePhone mobilePhone = new MobilePhone();
             MobileStore mobileStore = new MobileStore();
             Specification specification = new Specification();
-            Battery battery = new Battery();
+            Battery battery = new Battery.Builder().build();
             Display display = new Display();
             Processor processor = new Processor();
             Memory memory = new Memory();

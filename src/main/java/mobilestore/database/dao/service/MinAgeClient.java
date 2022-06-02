@@ -1,8 +1,8 @@
-package mobilestore.database.dao.impl.service;
+package mobilestore.database.dao.service;
 
 
-import mobilestore.database.dao.impl.mysql.ClientDAO;
-import mobilestore.database.dao.impl.mysql.UserDAO;
+import mobilestore.database.dao.impl.jdbc.ClientDAO;
+import mobilestore.database.dao.impl.jdbc.UserDAO;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.dao.interfaces.IUserDAO;
 import mobilestore.database.models.Client;

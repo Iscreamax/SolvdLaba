@@ -39,7 +39,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void updateEntity(Battery entity) throws SQLException {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
-            IBatteryDAO userDAO = sqlSession.getMapper(IBatteryDAO.class);
+            IBatteryDAO batteryDAO = sqlSession.getMapper(IBatteryDAO.class);
             sqlSession.update("updateBattery", entity);
             LOGGER.info("The battery is updated: " + entity);
             sqlSession.commit();
@@ -49,8 +49,8 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void removeEntity(int id) {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
-            IBatteryDAO userDAO = sqlSession.getMapper(IBatteryDAO.class);
-            LOGGER.info("The battery is deleted :" + userDAO.getEntityById(id));
+            IBatteryDAO batteryDAO = sqlSession.getMapper(IBatteryDAO.class);
+            LOGGER.info("The battery is deleted :" + batteryDAO.getEntityById(id));
             sqlSession.delete("removeBattery", id);
             sqlSession.commit();
         } catch (SQLException throwables) {
@@ -61,7 +61,7 @@ public class BatteryDAO implements IBatteryDAO {
     @Override
     public void showAllBatteries() {
         try (SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession()) {
-            IBatteryDAO userDAO = sqlSession.getMapper(IBatteryDAO.class);
+            IBatteryDAO batteryDAO = sqlSession.getMapper(IBatteryDAO.class);
             List<Battery> list = sqlSession.selectList("showAllBatteries");
             list.stream().forEach(LOGGER::info);
 

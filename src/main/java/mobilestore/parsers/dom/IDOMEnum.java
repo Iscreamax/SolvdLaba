@@ -1,4 +1,4 @@
-package mobilestore.dom;
+package mobilestore.parsers.dom;
 
 public interface IDOMEnum {
     String PHONE = "mobile_phone";

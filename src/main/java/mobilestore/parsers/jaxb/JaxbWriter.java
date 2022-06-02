@@ -1,4 +1,4 @@
-package mobilestore.jaxb;
+package mobilestore.parsers.jaxb;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -17,7 +17,7 @@ public class JaxbWriter {
     private static final Logger LOGGER = LogManager.getLogger(JaxbWriter.class);
 
     public static void marshal() {
-        Battery battery = new Battery();
+        Battery battery = new Battery.Builder().build();
         battery.setManufacturer("Samsung");
         battery.setCapacity(3450);
         battery.setPrice(27);

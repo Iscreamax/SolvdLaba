@@ -1,34 +1,33 @@
-package mobilestore.database.dao.impl.mysql;
+package mobilestore.database.dao.impl.jdbc;
 
 
 import mobilestore.database.connectionpool.AbstractClassJDBC;
-import mobilestore.database.dao.interfaces.IMemoryDAO;
-import mobilestore.database.models.Memory;
+import mobilestore.database.dao.interfaces.IMobileStoreDAO;
+import mobilestore.database.models.MobileStore;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
-public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
-    private static final Logger LOGGER = LogManager.getLogger(MemoryDAO.class);
-    private Memory m = new Memory();
+public class MobileStoreDAO extends AbstractClassJDBC implements IMobileStoreDAO {
+    private static final Logger LOGGER = LogManager.getLogger(MobileStoreDAO.class);
+    private MobileStore mb = new MobileStore();
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
 
     @Override
-    public void showAllMemories() {
+    public void showAllMobileStores() {
 
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from memories ");
+            pr = connection.prepareStatement("select * from mobile_stores ");
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                m.setId(resultSet.getInt("id"));
-                m.setName(resultSet.getString("manufacturer"));
-                m.setCapacity(resultSet.getInt("capacity"));
-                LOGGER.info(m);
+                mb.setName(resultSet.getString("name"));
+                mb.setAddress(resultSet.getString("address"));
+                LOGGER.info(mb);
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -44,17 +43,17 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     }
 
     @Override
-    public Memory getEntityById(int id) {
+    public MobileStore getEntityById(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("select * from memories where id=?");
+            pr = connection.prepareStatement("select * from mobile_stores where id=?");
             pr.setInt(1, id);
             pr.execute();
             resultSet = pr.getResultSet();
             while (resultSet.next()) {
-                m.setId(resultSet.getInt("id"));
-                m.setName(resultSet.getString("manufacturer"));
-                m.setCapacity(resultSet.getInt("capacity"));
+                mb.setId(resultSet.getInt("id"));
+                mb.setName(resultSet.getString("name"));
+                mb.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
             LOGGER.info(e);
@@ -67,19 +66,19 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
                 LOGGER.info(e);
             }
         }
-        return m;
+        return mb;
 
     }
 
     @Override
-    public void createEntity(Memory entity) {
+    public void createEntity(MobileStore entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("insert into memories (manufacturer,capacity) values (?,?)");
+            pr = connection.prepareStatement("insert into mobile_stores (name,address) values (?,?)");
             pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
+            pr.setString(2, entity.getAddress());
             pr.executeUpdate();
-            LOGGER.info("A new memory has been created: " + entity);
+            LOGGER.info("A new mobile store has been created: " + entity);
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -93,15 +92,14 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     }
 
     @Override
-    public void updateEntity(Memory entity) {
+    public void updateEntity(MobileStore entity) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("update memories set manufacturer=?,capacity=? where id=?");
+            pr = connection.prepareStatement("update mobile_stores set name=?,address=?where id=?");
             pr.setString(1, entity.getName());
-            pr.setInt(2, entity.getCapacity());
-            pr.setInt(3, entity.getId());
+            pr.setString(2, entity.getAddress());
             pr.executeUpdate();
-            LOGGER.info("Memory data has been updated.");
+            LOGGER.info("Mobile store data has been updated.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
@@ -118,13 +116,14 @@ public class MemoryDAO extends AbstractClassJDBC implements IMemoryDAO {
     public void removeEntity(int id) {
         try {
             connection = getConnectionPool().takeConnection();
-            pr = connection.prepareStatement("delete from memories where id=?");
+            pr = connection.prepareStatement("delete from mobile_store where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
-            LOGGER.info("The memory has been removed.");
+            LOGGER.info("The mobile store has been removed.");
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
+            getConnectionPool().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {

@@ -1,4 +1,4 @@
-package mobilestore.database.dao.impl.mysql;
+package mobilestore.database.dao.impl.jdbc;
 
 
 import mobilestore.database.connectionpool.AbstractClassJDBC;
