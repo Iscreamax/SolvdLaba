@@ -1,7 +1,8 @@
 package mobilestore.database.dao.impl.jdbc;
 
 
-import mobilestore.database.connectionpool.AbstractClassJDBC;
+
+import mobilestore.database.connectionpool.ConnectionPool;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.models.Client;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
-public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
+public class ClientDAO  implements IClientDAO {
 
     private static final Logger LOGGER = LogManager.getLogger(ClientDAO.class);
     private Client c = new Client();
@@ -22,7 +23,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     public void showAllClients() {
 
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from clients ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -36,7 +37,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -49,7 +50,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     @Override
     public Client getEntityById(int id) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from clients where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -63,7 +64,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -78,7 +79,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     @Override
     public void createEntity(Client entity) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("insert into clients (creditCardNumber,userId,validTHRU) values (?,?,?)");
             pr.setString(1, entity.getCreditCardNumber());
             pr.setInt(2, entity.getUserId());
@@ -88,7 +89,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -100,7 +101,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     @Override
     public void updateEntity(Client entity) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("update clients set creditCardNumber=?,userId=?,validTHRU=? where id=?");
             pr.setString(1, entity.getCreditCardNumber());
             pr.setInt(2, entity.getUserId());
@@ -111,7 +112,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -123,7 +124,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("delete from clients where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -131,7 +132,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -144,7 +145,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
     public List<Client> getClients() {
         List<Client> clients = new ArrayList<>();
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from clients ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -159,7 +160,7 @@ public class ClientDAO extends AbstractClassJDBC implements IClientDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();

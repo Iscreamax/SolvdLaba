@@ -1,5 +1,5 @@
 package mobilestore.database.dao.impl.jdbc;
-import mobilestore.database.connectionpool.AbstractClassJDBC;
+import mobilestore.database.connectionpool.ConnectionPool;
 import mobilestore.database.dao.interfaces.IUserDAO;
 import mobilestore.database.models.User;
 import org.apache.logging.log4j.LogManager;
@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends AbstractClassJDBC implements IUserDAO {
+public class UserDAO implements IUserDAO {
     private static final Logger LOGGER = LogManager.getLogger(UserDAO.class);
     private User u = new User();
     private Connection connection = null;
@@ -21,7 +21,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     public void showAllUsers() {
 
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from users ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -36,7 +36,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -49,7 +49,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     @Override
     public User  getEntityById(int id) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from users where id=?");
             pr.setInt(1, id);
             pr.execute();
@@ -64,7 +64,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();
@@ -79,7 +79,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     @Override
     public void createEntity(User entity) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("insert into users (name,surname,email,age) values (?,?,?,?)");
             pr.setString(1, entity.getName());
             pr.setString(2, entity.getSurname());
@@ -90,7 +90,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -102,7 +102,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     @Override
     public void updateEntity(User entity) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("update users set name=?,surname=?,email=?,age=? where id=?");
             pr.setString(1, entity.getName());
             pr.setString(2, entity.getSurname());
@@ -114,7 +114,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -126,7 +126,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     @Override
     public void removeEntity(int id) {
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("delete from users where id=?");
             pr.setInt(1, id);
             pr.executeUpdate();
@@ -134,7 +134,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
             } catch (SQLException e) {
@@ -147,7 +147,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         try {
-            connection = getConnectionPool().takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
             pr = connection.prepareStatement("select * from users ");
             pr.execute();
             resultSet = pr.getResultSet();
@@ -163,7 +163,7 @@ public class UserDAO extends AbstractClassJDBC implements IUserDAO {
         } catch (SQLException e) {
             LOGGER.info(e);
         } finally {
-            getConnectionPool().returnConnection(connection);
+            ConnectionPool.getInstance().returnConnection(connection);
             try {
                 if (pr != null) pr.close();
                 if (resultSet != null) resultSet.close();

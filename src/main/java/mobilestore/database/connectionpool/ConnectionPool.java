@@ -9,9 +9,7 @@ import java.sql.SQLException;
 
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public class ConnectionPool {
@@ -24,7 +22,10 @@ public class ConnectionPool {
     private ConnectionPool(){
 
     }
-
+    public static ConnectionPool getInstance(){
+        connectionPool = ConnectionPool.newInstance();
+        return connectionPool;
+    }
     public static synchronized ConnectionPool newInstance() {
         if (connectionPool == null) {
             LOGGER.info("POOL is created");
