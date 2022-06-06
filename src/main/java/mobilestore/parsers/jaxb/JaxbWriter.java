@@ -5,6 +5,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
 import mobilestore.database.models.*;
+import mobilestore.pattern.builder.BatteryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,8 @@ public class JaxbWriter {
     private static final Logger LOGGER = LogManager.getLogger(JaxbWriter.class);
 
     public static void marshal() {
-        Battery battery = new Battery.Builder().build();
+        BatteryBuilder builder = new BatteryBuilder();
+        Battery battery = new Battery(builder);
         battery.setManufacturer("Samsung");
         battery.setCapacity(3450);
         battery.setPrice(27);

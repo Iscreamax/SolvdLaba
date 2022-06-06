@@ -2,6 +2,7 @@ package mobilestore.parsers.dom;
 
 import mobilestore.database.models.*;
 import mobilestore.database.models.MobilePhone;
+import mobilestore.pattern.builder.BatteryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -44,7 +45,9 @@ public class RealDom implements IDOMEnum {
             MobilePhone mobilePhone = new MobilePhone();
             MobileStore mobileStore = new MobileStore();
             Specification specification = new Specification();
-            Battery battery = new Battery.Builder().build();
+            BatteryBuilder bbuilder = new BatteryBuilder();
+            bbuilder.build();
+            Battery battery = new Battery(bbuilder);
             Display display = new Display();
             Processor processor = new Processor();
             Memory memory = new Memory();

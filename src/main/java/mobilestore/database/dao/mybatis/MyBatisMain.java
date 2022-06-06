@@ -4,12 +4,10 @@ import mobilestore.database.dao.interfaces.IBatteryDAO;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.dao.interfaces.IMemoryDAO;
 import mobilestore.database.dao.interfaces.IMobileStoreDAO;
-import mobilestore.database.models.Battery;
-import mobilestore.database.models.Client;
-import mobilestore.database.models.Memory;
+import mobilestore.database.models.*;
 
-import mobilestore.database.models.MobileStore;
 import mobilestore.pattern.DAO;
+import mobilestore.pattern.builder.BatteryBuilder;
 import mobilestore.pattern.factory.JDBCFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +19,12 @@ public class MyBatisMain {
     private static final Logger LOGGER = LogManager.getLogger(MyBatisMain.class);
 
     public static void runBatteryDao() {
-
+        BatteryBuilder builder =  new BatteryBuilder();
         IBatteryDAO iBatteryDAO = (IBatteryDAO) JDBCFactory.createDAO(DAO.BATTERY);
-        Battery battery = new Battery.Builder().setManufacturer("Samsung").setCapacity(3400).setPrice(23).build();
-        Battery batteryUpdate =new Battery.Builder().setId(4).setManufacturer("Apple").setCapacity(4500).setPrice(55).build();
+        builder.setManufacturer("Samsung").setCapacity(3400).setPrice(23).build();
+        Battery battery = new Battery(builder);
+        builder.setId(4).setManufacturer("Apple").setCapacity(4500).setPrice(55).build();
+        Battery batteryUpdate =new Battery(builder);
         //get battery by id
         try {
             LOGGER.info(iBatteryDAO.getEntityById(3));

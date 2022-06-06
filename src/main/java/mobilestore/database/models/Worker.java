@@ -7,6 +7,16 @@ public class Worker {
     private int userId;
     private int mobileStoreId;
 
+    public Worker(){
+    }
+
+    public Worker(String position, String experience, int userId, int mobileStoreId) {
+        this.position = position;
+        this.experience = experience;
+        this.userId = userId;
+        this.mobileStoreId = mobileStoreId;
+    }
+
     public int getId() {
         return id;
     }

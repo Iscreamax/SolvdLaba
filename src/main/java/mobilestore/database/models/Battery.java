@@ -5,11 +5,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import mobilestore.pattern.builder.BatteryBuilder;
 
 @XmlRootElement(name = "battery")
 @XmlType(propOrder = {"id", "manufacturer", "capacity", "price"})
 @JsonPropertyOrder({"manufacturer", "capacity", "price"})
-public class Battery {
+public class Battery{
     @JsonProperty
     private int id;
     @JsonProperty
@@ -20,11 +21,11 @@ public class Battery {
     private int price;
 
 
-    public Battery(Builder builder) {
-        this.id = builder.id;
-        this.manufacturer = builder.manufacturer;
-        this.capacity = builder.capacity;
-        this.price = builder.price;
+    public Battery(BatteryBuilder builder) {
+        this.id = builder.getId();
+        this.manufacturer = builder.getManufacturer();
+        this.capacity = builder.getCapacity();
+        this.price = builder.getPrice();
     }
 
     public int getId() {
@@ -72,54 +73,54 @@ public class Battery {
                 '}';
     }
 
-    public static class Builder {
-        private int id;
-        private String manufacturer;
-        private int capacity;
-        private int price;
-
-        public Builder() {
-        }
-
-        public Builder setId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setManufacturer(String manufacturer) {
-            this.manufacturer = manufacturer;
-            return this;
-        }
-
-        public Builder setCapacity(int capacity) {
-            this.capacity = capacity;
-            return this;
-        }
-
-        public Builder setPrice(int price) {
-            this.price = price;
-            return this;
-        }
-
-        public Battery build() {
-            return new Battery(this);
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getManufacturer() {
-            return manufacturer;
-        }
-
-        public int getCapacity() {
-            return capacity;
-        }
-
-        public int getPrice() {
-            return price;
-        }
-    }
+//    public static class Builder {
+//        private int id;
+//        private String manufacturer;
+//        private int capacity;
+//        private int price;
+//
+//        public Builder() {
+//        }
+//
+//        public Builder setId(int id) {
+//            this.id = id;
+//            return this;
+//        }
+//
+//        public Builder setManufacturer(String manufacturer) {
+//            this.manufacturer = manufacturer;
+//            return this;
+//        }
+//
+//        public Builder setCapacity(int capacity) {
+//            this.capacity = capacity;
+//            return this;
+//        }
+//
+//        public Builder setPrice(int price) {
+//            this.price = price;
+//            return this;
+//        }
+//
+//        public Battery build() {
+//            return new Battery(this);
+//        }
+//
+//        public int getId() {
+//            return id;
+//        }
+//
+//        public String getManufacturer() {
+//            return manufacturer;
+//        }
+//
+//        public int getCapacity() {
+//            return capacity;
+//        }
+//
+//        public int getPrice() {
+//            return price;
+//        }
+//    }
 
 }

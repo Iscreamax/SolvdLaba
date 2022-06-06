@@ -1,14 +1,12 @@
 package mobilestore.pattern;
 
-
-
-
 public enum DAO {
     BATTERY("BatteryDAO"),
     USER("UserDAO"),
     CLIENT("ClientDAO"),
     MEMORY("MemoryDAO"),
     MOBILE_STORE("MobileStoreDAO"),
+    WORKER("WorkerDAO"),
     JDBC("jdbc"),
     MY_BATIS("MyBatis");
 

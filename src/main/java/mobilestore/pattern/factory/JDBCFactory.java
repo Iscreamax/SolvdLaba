@@ -3,7 +3,6 @@ package mobilestore.pattern.factory;
 
 import mobilestore.database.dao.impl.jdbc.*;
 import mobilestore.database.dao.interfaces.IBaseDAO;
-import mobilestore.database.dao.interfaces.IUserDAO;
 import mobilestore.pattern.DAO;
 import mobilestore.pattern.abstractFactory.AbstractFactory;
 

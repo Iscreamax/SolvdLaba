@@ -5,6 +5,7 @@ package mobilestore.database.dao.impl.jdbc;
 import mobilestore.database.connectionpool.ConnectionPool;
 import mobilestore.database.dao.interfaces.IBatteryDAO;
 import mobilestore.database.models.Battery;
+import mobilestore.pattern.builder.BatteryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +14,8 @@ import java.sql.*;
 
 public class BatteryDAO  implements IBatteryDAO {
     private static final Logger LOGGER = LogManager.getLogger(BatteryDAO.class);
-    private Battery b = new Battery.Builder().build();
+    private BatteryBuilder builder = new BatteryBuilder();
+    private Battery b = new Battery(builder);
     private Connection connection = null;
     private PreparedStatement pr = null;
     private ResultSet resultSet = null;
