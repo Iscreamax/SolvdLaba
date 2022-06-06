@@ -1,9 +1,5 @@
 package mobilestore.database.dao.mybatis;
 
-import mobilestore.database.dao.impl.mybatis.BatteryDAO;
-import mobilestore.database.dao.impl.mybatis.MemoryDAO;
-import mobilestore.database.dao.impl.mybatis.ClientDAO;
-import mobilestore.database.dao.impl.mybatis.MobileStoreDAO;
 import mobilestore.database.dao.interfaces.IBatteryDAO;
 import mobilestore.database.dao.interfaces.IClientDAO;
 import mobilestore.database.dao.interfaces.IMemoryDAO;
@@ -13,7 +9,8 @@ import mobilestore.database.models.Client;
 import mobilestore.database.models.Memory;
 
 import mobilestore.database.models.MobileStore;
-import mobilestore.pattern.factory.DAOFactory;
+import mobilestore.pattern.DAO;
+import mobilestore.pattern.factory.JDBCFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,11 +19,10 @@ import java.sql.SQLException;
 
 public class MyBatisMain {
     private static final Logger LOGGER = LogManager.getLogger(MyBatisMain.class);
-    public static DAOFactory daoFactory = new DAOFactory();
 
     public static void runBatteryDao() {
 
-        IBatteryDAO iBatteryDAO = new BatteryDAO();
+        IBatteryDAO iBatteryDAO = (IBatteryDAO) JDBCFactory.createDAO(DAO.BATTERY);
         Battery battery = new Battery.Builder().setManufacturer("Samsung").setCapacity(3400).setPrice(23).build();
         Battery batteryUpdate =new Battery.Builder().setId(4).setManufacturer("Apple").setCapacity(4500).setPrice(55).build();
         //get battery by id
@@ -51,7 +47,7 @@ public class MyBatisMain {
     }
 
     public static void runMemoryDao() {
-        IMemoryDAO iMemoryDAO = new MemoryDAO();
+        IMemoryDAO iMemoryDAO = (IMemoryDAO) JDBCFactory.createDAO(DAO.MEMORY);
         Memory memory = new Memory("CD", 265);
         Memory memoryUpdate = new Memory(2, "JD", 128);
         //create memory
@@ -75,7 +71,7 @@ public class MyBatisMain {
     }
 
     public static void runClientDao() {
-        IClientDAO iClientDAO = new ClientDAO();
+        IClientDAO iClientDAO = (IClientDAO) JDBCFactory.createDAO(DAO.CLIENT);
         Client client = new Client("12332543681", 21, "20/24");
         Client clientUpdate = new Client(3, "8763254361", 22, "18/28");
         //create client
@@ -99,7 +95,7 @@ public class MyBatisMain {
     }
 
     public static void MobileStoreDao() {
-        IMobileStoreDAO iMobileStoreDAO = new MobileStoreDAO();
+        IMobileStoreDAO iMobileStoreDAO = (IMobileStoreDAO) JDBCFactory.createDAO(DAO.MOBILE_STORE);
         MobileStore mobileStore = new MobileStore("Mobile Centre", "92 Masherov Avenue");
         MobileStore mobileStoreUpdate = new MobileStore(4, "Mobile World", "Nemiga Street 21");
         //create mobileStore
@@ -128,7 +124,7 @@ public class MyBatisMain {
 //        MyBatisMain.runMemoryDao();
 //        MyBatisMain.runClientDao();
 //        MyBatisMain.MobileStoreDao();
-        IClientDAO clientDAO = new ClientDAO();
+        IClientDAO clientDAO =(IClientDAO) JDBCFactory.createDAO(DAO.CLIENT);
         clientDAO.showAllClients();
     }
 }

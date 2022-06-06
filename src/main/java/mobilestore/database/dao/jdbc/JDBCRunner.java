@@ -1,8 +1,10 @@
 package mobilestore.database.dao.jdbc;
 
-import mobilestore.database.dao.impl.jdbc.BatteryDAO;
+
 import mobilestore.database.dao.interfaces.IBatteryDAO;
 import mobilestore.database.models.Battery;
+import mobilestore.pattern.DAO;
+import mobilestore.pattern.factory.JDBCFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +15,7 @@ public class JDBCRunner {
 
     public static void main(String[] args) {
         Battery battery = new Battery.Builder().setId(3).setManufacturer("Apple").setCapacity(1200).setPrice(35).build();
-        IBatteryDAO b = new BatteryDAO();
+        IBatteryDAO b = (IBatteryDAO) JDBCFactory.createDAO(DAO.BATTERY);
         try {
             LOGGER.info(b.getEntityById(3));
             LOGGER.info(b.getEntityById(5));
